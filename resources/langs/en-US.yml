@@ -1,0 +1,94 @@
+---
+LANG_VERSION: 0.1alpha0
+LANG_NAME: English
+
+death.arrow: ">> {PLAYER} has been shot by {KILLER}."
+death.arrow_player: ">> You has been shot by {KILLER}."
+death.fall.1: ">> {PLAYER} thought they are playing ping pong games."
+death.fall.2: ">> {PLAYER} thought they are playing ping pong games."
+death.fall.3: ">> {PLAYER} thought they are playing ping pong games."
+death.fall.4: ">> {PLAYER} thought they are playing ping pong games."
+death.fall_player.1: ">> Haha, ping pong games rolled."
+death.fall_player.2: ">> Haha, ping pong games rolled."
+death.fall_player.3: ">> Haha, ping pong games rolled."
+death.fall_playe.4: ">> Haha, ping pong games rolled."
+death.lava: ">> {PLAYER} died while tasting the liquid rock!"
+death.lava_player: ">> Tasted like hot rock, right?"
+death.pvp: "{PLAYER} has been killed by {KILLER}"
+death.pvp_player: "{PLAYER} has been killed by {KILLER}"
+death.flame: ">> {PLAYER} has been burnt to arc by {KILLER}"
+death.flame_player: ">> I'm HOT, literally!"
+death.spectator: ">> You are not supposed to do that. Cry ;-; (You can join or left now...)"
+death.unknown: ">> {PLAYER} died for no reason."
+death.unknown_player: ">> sTuPon, you died for no reason..."
+
+death.player-left.1: " {CURRENT} players left!"
+death.player-left.2: " [{CURRENT}/{SLOT}]"
+death.player-left.3: " {CURRENT} out of {SLOT}"
+death.player-left.4: " {CURRENT}/{SLOT}"
+
+chat.countdown: "Calm... It's not like you are getting an argument in a block game..."
+chat.cheater: "Cheater? Feel free to report them..."
+chat.cake: "Yum, imma head out due to sugary :C"
+chat.candy: "Is it halloween?"
+chat.homework: "You haven't finished your homework, Have you??"
+chat.building: "TBH, you haven't finished that building..."
+
+command.banned: "You cannot use this command while playing this!"
+command.noperm: "You don't have command to use this command!"
+
+game.chest.refill: ">> All chests has refill!"
+game.countdown_15: 15
+game.countdown_1: 1
+game.countdown_2: 2
+game.countdown_3: 3
+game.countdown_prefix: "Game start in: {num}"
+
+game.disconected: ">> {PLAYER} has logout of the Earth.]"
+game.join: ">> {PLAYER} joined the game [{CURRENT}/{SLOT}]."
+game.full: ">> The game is full, join the others or waiting..."
+game.needplayers: ">> You need more player to start the game..."
+game.left: ">> {PLAYER} left the game [{CURRENT}/{SLOT}]."
+game.left_ingame: ">> {PLAYER} left the game."
+game.start: "GAME STARTED"
+game.restaring: "The game gonna restart in the next {SEC}"
+game.reward: "Congrats, you earned nothing..."
+
+server.broadcast.winner: "LMAO, {PLAYER} won a skywar match!"
+
+scoreboard.line1: ""
+scoreboard.line2: ""
+scoreboard.line3: ""
+scoreboard.line4: ""
+scoreboard.line5: ""
+scoreboard.line6: ""
+scoreboard.line7: ""
+scoreboard.line8: ""
+scoreboard.line9: ""
+scoreboard.line10: ""
+scoreboard.line11: ""
+scoreboard.line12: ""
+scoreboard.line13: ""
+scoreboard.line14: ""
+scoreboard.line15: ""
+scoreboard.title: ""
+
+form.manager.title: "SKYWAR"
+form.manager.text: "&6Skywar Manager"
+form.manager.button-settings: "SkyWar Settings"
+form.manager.button-arenalist: "Arena List"
+form.manager.button-maplist: "Map List"
+form.manager.button-language: "Language"
+
+form.settings.title: "SKYWAR"
+form.settings.text: "&6Skywar Settings"
+form.settings.input1: "Countdown Time: "
+form.settings.input2: "Opencage Time: "
+form.settings.input3: "Game Time: "
+form.settings.input4: "Restart Time: "
+form.settings.input5: "Force Start Time: "
+
+form.language.title: "SKYWAR"
+form.language.text: "&6Current language: &a{LANGUAGE_NAME} ({LANGUAGE_ID})"
+form.language.dropdown: "Chose a language: "
+...

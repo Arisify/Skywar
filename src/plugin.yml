@@ -1,0 +1,25 @@
+name: Skywar
+author: arie
+main: arie\skywar\Skywar
+version: 0.1alpha0
+api: 4.0.0
+
+permissions:
+  skywar.cmd:
+    description: Allows players to use BreakPoint commands
+    default: false
+  skywar.join:
+    description: Allows players to join arena
+    default: true
+  skywar.map_vote:
+    description: Allows players to vote for the map
+    default: true
+  skywar.kit_vote:
+    description: Allows players to vote for the kit
+    default: true
+  skywar.chest_vote:
+    description: Allows players to vote for the chest fill
+    default: false
+  skywar.vip:
+    description: Allows players to have vip, included chest voting
+    default: false

@@ -1,0 +1,95 @@
+---
+LANG_VERSION: 0.1alpha0
+LANG_NAME: Tiếng Việt
+
+death.arrow: ">> {PLAYER} đã bị bắn bởi {KILLER}."
+death.arrow_player: ">> Bạn đã bị bắn bởi {KILLER}."
+death.fall.1: ">> {PLAYER} ngã lăn quay."
+death.fall.2: ">> {PLAYER} ngã lăn quay 2."
+death.fall.3: ">> {PLAYER} thought they are playing ping pong games."
+death.fall.4: ">> {PLAYER} thought they are playing ping pong games."
+death.fall_player.1: ">> Haha, ping pong games rolled."
+death.fall_player.2: ">> Haha, ping pong games rolled."
+death.fall_player.3: ">> Haha, ping pong games rolled."
+death.fall_playe.4: ">> Haha, ping pong games rolled."
+death.fall_player: ">> Haha, ngã lăn quay."
+death.lava: ">> {PLAYER} chết khi đang tận hưởng nồng vị mác-ma!"
+death.lava_player: ">> Như đá nướng phải không?"
+death.pvp: "{PLAYER} has been killed by {KILLER}"
+death.pvp_player: "You have been killed by {KILLER}"
+death.flame: ">> {PLAYER} đã hóa thành tro khi đấu với {KILLER}"
+death.flame_player: ">> Tôi rất nóng bỏng, cả nghĩa bóng luôn!"
+death.spectator: ">> Bạn không thể chết trong chế độ khản giả, nó vi phạm, huhu;-; (Bạn có thể thoát ra hoặc tham gia ván mới...)"
+death.unknown: ">> {PLAYER} đột tử..."
+death.unknown_player: ">> ngu ngôk, bạn chết vì không gì cả..."
+
+death.player-left.1: " Còn lại {CURRENT}!"
+death.player-left.2: " [{CURRENT}/{SLOT}]"
+death.player-left.3: " {CURRENT} out of {SLOT}"
+death.player-left.4: " {CURRENT}/{SLOT}"
+
+chat.countdown: "Calm... It's not like you are getting an argument in a block game..."
+chat.cheater: "Cheater? Feel free to report them..."
+chat.cake: "Yum, imma head out due to sugary :C"
+chat.candy: "Is it halloween?"
+chat.homework: "You haven't finished your homework, Have you??"
+chat.building: "TBH, you haven't finished that building..."
+
+command.banned: "You cannot use this command while playing this!"
+command.noperm: "You don't have command to use this command!"
+
+game.chest.refill: ">> All chests has refill!"
+game.countdown_15: 15
+game.countdown_1: 1
+game.countdown_2: 2
+game.countdown_3: 3
+game.countdown_prefix: "Game start in: {num}"
+
+game.disconected: ">> {PLAYER} has logout of the Earth.]"
+game.join: ">> {PLAYER} joined the game [{CURRENT}/{SLOT}]."
+game.full: ">> The game is full, join the others or waiting..."
+game.needplayers: ">> You need more player to start the game..."
+game.left: ">> {PLAYER} left the game [{CURRENT}/{SLOT}]."
+game.left_ingame: ">> {PLAYER} left the game."
+game.start: "GAME STARTED"
+game.restaring: "The game gonna restart in the next {SEC}"
+game.reward: "Congrats, you earned nothing..."
+
+server.broadcast.winner: "LMAO, {PLAYER} won a skywar match!"
+
+scoreboard.line1: ""
+scoreboard.line2: ""
+scoreboard.line3: ""
+scoreboard.line4: ""
+scoreboard.line5: ""
+scoreboard.line6: ""
+scoreboard.line7: ""
+scoreboard.line8: ""
+scoreboard.line9: ""
+scoreboard.line10: ""
+scoreboard.line11: ""
+scoreboard.line12: ""
+scoreboard.line13: ""
+scoreboard.line14: ""
+scoreboard.line15: ""
+scoreboard.title: ""
+
+form.manager.title: "SKYWAR"
+form.manager.text: "&6Bộ sử lí Skywar"
+form.manager.button-settings: "Cài đặt Skywar"
+form.manager.button-arenalist: "Danh sách trò chơi"
+form.manager.button-maplist: "Danh sách thế giới"
+form.manager.button-language: "Cài đặt ngôn ngữ"
+
+form.settings.title: "SKYWAR"
+form.settings.text: "&6Cài đặt Skywar"
+form.settings.input1: "Thời gian đếm ngược: "
+form.settings.input2: "Thời gian mở lồng: "
+form.settings.input3: "Thời gian trò chơi: "
+form.settings.input4: "Thời gian khởi động lại: "
+form.settings.input5: "Thời gian bắt đầu sớm: "
+
+form.language.title: "SKYWAR"
+form.language.text: "&6Ngôn ngữ hiện tại: &a{LANGUAGE_NAME} ({LANGUAGE_ID})"
+form.language.dropdown: "Chọn ngôn ngữ: {LANGUAGE_ID}"
+...

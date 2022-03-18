@@ -1,0 +1,70 @@
+---
+# -------------Skywar config--------------
+# Configuration version, don't edit this.
+CONFIG_VERSION: 0.1alpha0
+
+language: en-US
+
+database:
+  # The database provider, mysql or sqlite.
+  provider: sqlite
+  # Number of threads to use for the database query processing, 2 is recommended.
+  threads: 2
+
+  # The database connection information
+  mysql:
+    host: 127.0.0.1
+    username: your_username
+    password: password
+    schema: db_name
+    port: 3300
+
+  # The database file name.
+  sqlite:
+    file: players.db
+# The map will be archived and saved as a zip file
+skywar.settings-archive_map: true
+# In-game kill counter
+skywar.settings-killcounter: true
+# Broadcast player's winning to all players on the server
+skywar.settings-broadcast_winner: true
+# Save player inventory
+skywar.settings-save_player_inventory: true
+# -1 for no limit arena
+skywar.settings-arena_limit: -1
+# BedrockEconomy only
+
+skywar.settings-reward: 200
+skywar.time-countdown: 45
+skywar.time-opencage: 15
+skywar.time-game: 1200
+skywar.time-restart: 15
+skywar.time-force: 15
+
+skywar.world.lobby:
+  #Broken yet?
+  - pos: 0,0,0 # Broken too
+  - name: world
+skywar.world.waiting:
+  - pos: 0,0,0 #  Broken
+  - name: world
+
+#Commments
+skywar.commands.banned: #Yellow
+  - /tpa #Comments
+  - /tp
+  - /tpaccept
+  - /back
+  - /home
+  - /f
+  - a:
+#Lmao
+      - b:
+      # Gao gao
+          - Gi #Lmao
+# Magik
+  - /kill
+  - /suicide
+#COmputer
+com: hi #Bello
+...
