@@ -18,26 +18,25 @@ class ArenaManager{
 	protected int $default_restart_time = 15;
 	protected int $default_force_time = 15;
 
-	private int $limit_arena = -1; //-1 means no limit
+	private int $arena_limit = -1; //-1 means no limit
 
 	private bool $savePlayerData;
 
 	private ?Position $lobby_pos = null;
 	private ?Position $waiting_pos = null;
 
-	private array $maps = [];
-	//private WorldManager $worldManager;
+	public array $maps = [];
 	private string $map_path;
 
 	public array $commandsBanLists;
 	private bool $archiveMap;
 
 	public function __construct(private Skywar $plugin) {
-		//$this->worldManager = $plugin->getServer()->getWorldManager();
-		$this->map_path = $this->plugin->getDataFolder() . "maps" . DIRECTORY_SEPARATOR;
-		$this->commandsBanLists = $this->plugin->getConfig()->get("skywar.commands.banned", []);
-		$this->savePlayerData = $this->plugin->getConfig()->get("skywar.settings-save_player_inventory", true);
-		$this->archiveMap = $this->plugin->getConfig()->get("skywar.settings-archive_map", true);
+		$this->map_path = $this->plugin->getDataFolder() . "maps/";
+		$this->commandsBanLists = (array) $this->plugin->getConfig()->get("skywar.commands.banned", []);
+		$this->savePlayerData = (bool) $this->plugin->getConfig()->get("skywar.settings-save_player_inventory", true);
+		$this->archiveMap = (bool) $this->plugin->getConfig()->get("skywar.settings-archive_map", true);
+		$this->arena_limit = (int) $this->plugin->getConfig()->get("skywar.settings-arena_limit", -1);
 
 		$this->default_countdown_time = $this->plugin->getConfig()->get("skywar.time-countdown", 45);
 		$this->default_opencage_time = $this->plugin->getConfig()->get("skywar.time-opencage", 15);
@@ -45,7 +44,11 @@ class ArenaManager{
 		$this->default_restart_time = $this->plugin->getConfig()->get("skywar.time-restart", 15);
 		$this->default_force_time = $this->plugin->getConfig()->get("skywar.time-force", 15);
 
-		$maps = glob($this->map_path, GLOB_ONLYDIR);
+		if ($this->archiveMap) {
+			$maps = glob($this->map_path, GLOB_ONLYDIR);
+
+		}
+
 		foreach ($maps as $map) {
 			$map_path = $this->map_path . $map . "zip";
 			$data_path = $this->map_path . $map . "json";
@@ -268,5 +271,19 @@ class ArenaManager{
 	 */
 	public function setDefaultForceTime(mixed $default_force_time) : void{
 		$this->default_force_time = $default_force_time;
+	}
+
+	/**
+	 * @return bool|int|mixed
+	 */
+	public function getArenaLimit() : int{
+		return $this->arena_limit;
+	}
+
+	/**
+	 * @param bool|int|mixed $arena_limit
+	 */
+	public function setArenaLimit(int $arena_limit) : void{
+		$this->arena_limit = $arena_limit;
 	}
 }

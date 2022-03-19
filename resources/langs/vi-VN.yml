@@ -87,6 +87,8 @@ scoreboard.line14: ""
 scoreboard.line15: ""
 scoreboard.title: ""
 
+form.button.back: "Quay lại"
+
 form.manager.title: "SKYWAR"
 form.manager.text: "&6Bộ sử lí Skywar"
 form.manager.button-settings: "Cài đặt Skywar"
@@ -101,6 +103,10 @@ form.settings.input2: "Thời gian mở lồng: "
 form.settings.input3: "Thời gian trò chơi: "
 form.settings.input4: "Thời gian khởi động lại: "
 form.settings.input5: "Thời gian bắt đầu sớm: "
+form.settings.input6: "Giới hạn trò chơi: -1 "
+
+form.maps.title: "SKYWAR"
+form.maps.text: "Danh sách map"
 
 form.language.title: "SKYWAR"
 form.language.text: "&6Ngôn ngữ hiện tại: &a{LANGUAGE_NAME} ({LANGUAGE_ID})"

@@ -5,6 +5,7 @@ branches:
 projects:
   Skywar:
     path: ""
+    icon: "/assets/logo.png"
     libs:
       - src: Arisify/yamlcomments/yamlcomments
         version: ^1.0.0

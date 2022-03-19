@@ -86,6 +86,8 @@ scoreboard.line14: ""
 scoreboard.line15: ""
 scoreboard.title: ""
 
+form.button.back: "Back"
+
 form.manager.title: "SKYWAR"
 form.manager.text: "&6Skywar Manager"
 form.manager.button-settings: "SkyWar Settings"
@@ -100,6 +102,10 @@ form.settings.input2: "Opencage Time: "
 form.settings.input3: "Game Time: "
 form.settings.input4: "Restart Time: "
 form.settings.input5: "Force Start Time: "
+form.settings.input6: "Arena limit: "
+
+form.maps.title: "SKYWAR"
+form.maps.text: "Maps List"
 
 form.language.title: "SKYWAR"
 form.language.text: "&6Current language: &a{LANGUAGE_NAME} ({LANGUAGE_ID})"

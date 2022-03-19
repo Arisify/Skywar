@@ -65,7 +65,7 @@ class SkywarCommands extends Command{
 					$sender->sendMessage("This command can only be used in-game!");
 					break;
 				}
-				$sender->sendForm($this->plugin->getArenaManagerUI());
+				$sender->sendForm($this->plugin->getSkywarManagerUI());
 				break;
 			default:
 				$sender->sendMessage($this->getUsage());

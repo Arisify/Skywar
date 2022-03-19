@@ -4,8 +4,8 @@ main: arie\skywar\Skywar
 version: 0.1alpha1
 api: 4.0.0
 versions:
-  - config: 0.1
-  - language: 0.1
+  config: 0.1
+  language: 0.1
 
 permissions:
   skywar.cmd:

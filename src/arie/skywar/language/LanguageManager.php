@@ -55,7 +55,7 @@ final class LanguageManager{
 		}else{
 			$this->messages = array_map(static fn(string $message) : string => TextFormat::colorize($message), $this->getRawLanguageData($language_id));
 		}
-		$language_version = $this->messages["language_version"] ?? "";
+		$language_version = $this->messages["LANG_VERSION"] ?? "Unknown";
 		if ($language_version !== $this->language_version) {
 			$this->plugin->getLogger()->notice(sprintf("The language you are using is outdated (%s)-> (%s), which can cause translations to be missing or wrong!", $language_version, $this->language_version));
 		}
@@ -99,5 +99,9 @@ final class LanguageManager{
 
 	public function getLanguageName(string $language_id = self::DEFAULT_LANGUAGE) : string{
 		return $this->languages[$language_id] ?? "Unknown";
+	}
+
+	public function getLanguageVersion() : string{
+		return $this->language_version;
 	}
 }
