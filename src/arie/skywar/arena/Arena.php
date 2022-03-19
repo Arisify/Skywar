@@ -216,7 +216,7 @@ class Arena{
 			return false;
 		}
 		$this->world = $world;
-		$this->slots = \SplFixedArray::fromArray($this->maps[]);
+		//$this->slots = \SplFixedArray::fromArray($this->maps[]); Todo: fix the logic
 		return true;
 	}
 

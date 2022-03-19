@@ -5,4 +5,7 @@ branches:
 projects:
   Skywar:
     path: ""
+    libs:
+      - src: Arisify/yamlcomments/yamlcomments
+        version: ^1.0.0
 ...

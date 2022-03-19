@@ -1,6 +1,19 @@
 ---
-LANG_VERSION: 0.1alpha0
+LANG_VERSION: 0.1
 LANG_NAME: English
+
+mode.group.1: "Solos"
+mode.group.2: "Duals"
+mode.group.3: "Trios"
+mode.group.4: "Quads"
+mode.group.5: "Squads"
+mode.group.6: "Hexad"
+mode.group.7: "Heptad"
+mode.group.8: "Octad"
+mode.group.9: "Ennead"
+mode.group.10: "Mega"
+mode.group.11: "Mega Plus"
+mode.group.12: "Mega Pre"
 
 death.arrow: ">> {PLAYER} has been shot by {KILLER}."
 death.arrow_player: ">> You has been shot by {KILLER}."

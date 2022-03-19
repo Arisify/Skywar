@@ -1,7 +1,7 @@
 ---
 # -------------Skywar config--------------
 # Configuration version, don't edit this.
-CONFIG_VERSION: 0.1alpha0
+CONFIG_VERSION: 0.1
 
 language: en-US
 
@@ -50,6 +50,21 @@ skywar.world.waiting:
   - name: world
 
 #Commments
+skywar.commands:
+  group:
+    1: [solo, solos]
+    2: [dual, duals]
+    3: [trio, trios]
+    4: [solo, solos]
+    5: [solo, solos]
+    6: [solo, solos]
+    7: [solo, solos]
+    8: [solo, solos]
+    9: [solo, solos]
+    10: [solo, solos]
+    11: [solo, solos]
+    12: [solo, solos]
+
 skywar.commands.banned: #Yellow
   - /tpa #Comments
   - /tp

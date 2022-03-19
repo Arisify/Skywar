@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace arie\skywar;
 
+use arie\yamlcomments\YamlComments;
 use pocketmine\event\Listener;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
@@ -10,7 +11,6 @@ use pocketmine\plugin\PluginBase;
 use arie\skywar\arena\ArenaManager;
 use arie\skywar\language\LanguageManager;
 use arie\skywar\scoreboard\Scoreboard;
-use arie\skywar\utils\YamlComments;
 
 use dktapps\pmforms\CustomForm;
 use dktapps\pmforms\CustomFormResponse;
@@ -22,14 +22,12 @@ use dktapps\pmforms\MenuForm;
 use dktapps\pmforms\MenuOption;
 
 final class Skywar extends PluginBase implements Listener{
-	/** Plugin Version */
-	public const VERSION = "0.1alpha0";
 	protected static Skywar $instance;
 
 	protected ArenaManager $arena_manager;
 	protected LanguageManager $language;
 	protected Scoreboard $scoreboard;
-	private YamlComments $configModifier;
+	private YamlComments $yamlcomments;
 
 	public function onLoad() : void {
 		self::$instance = $this;
@@ -40,7 +38,7 @@ final class Skywar extends PluginBase implements Listener{
 		$this->language = new LanguageManager($this);
 		$this->arena_manager = new ArenaManager($this);
 		$this->scoreboard = Scoreboard::getInstance();
-		$this->configModifier = new YamlComments($this);
+		$this->yamlcomments = new YamlComments($this->getConfig());
 	}
 
 	public static function getInstance() : self {
@@ -120,8 +118,16 @@ final class Skywar extends PluginBase implements Listener{
 	}
 
 	public function onDisable() : void {
-		$this->getConfig()->save();
-		$this->configModifier->save();
+		$this->getConfig()->set("skywar.time-countdown", $this->arena_manager->getDefaultCountdownTime());
+		$this->getConfig()->set("skywar.time-opencage", $this->arena_manager->getDefaultOpencageTime());
+		$this->getConfig()->set("skywar.time-game", $this->arena_manager->getDefaultGameTime());
+		$this->getConfig()->set("skywar.time-restart", $this->arena_manager->getDefaultRestartTime());
+		$this->getConfig()->set("skywar.time-force", $this->arena_manager->getDefaultForceTime());
+
+		$this->getConfig()->set("language", $this->language->getLanguageId());
+		
+		$this->saveConfig();
+		$this->yamlcomments->saveDoc();
 	}
 
 	/**

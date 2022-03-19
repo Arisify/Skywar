@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace arie\skywar\language;
 
-use arie\skywar\Skywar;
 use pocketmine\utils\SingletonTrait;
 use pocketmine\utils\TextFormat;
+
+use arie\skywar\Skywar;
 
 final class LanguageManager{
 	use SingletonTrait;
@@ -21,9 +22,11 @@ final class LanguageManager{
 	];
 
 	private string $filePath;
+	private mixed $language_version;
 
 	public function __construct(private Skywar $plugin){
 		$this->filePath = $this->plugin->getDataFolder() . "langs" . DIRECTORY_SEPARATOR;
+		$this->language_version = $this->plugin->getDescription()->getMap()["versions"]["language"];
 
 		if (!@mkdir($concurrentDirectory = $this->filePath) && !is_dir($concurrentDirectory)) {
 			throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
@@ -40,18 +43,22 @@ final class LanguageManager{
 
 	public function reMap(string $language_id = self::DEFAULT_LANGUAGE) : bool{
 		if (!is_file($this->filePath . $language_id . ".yml")) {
-			$this->plugin->getLogger()->notice("The language you are using ($language_id) is not exist, using default language!");
+			$this->plugin->getLogger()->notice(sprintf("The language which you are using (%s) is not exist, using default language (%s)!", $language_id, self::DEFAULT_LANGUAGE));
 			$this->language_id = self::DEFAULT_LANGUAGE;
 			return false;
 		}
 		$this->language_id = $language_id;
 
 		if (!in_array($language_id, self::SUPPORTED_LANGUAGES, true)){
-			$this->plugin->getLogger()->notice("The language you are using ($language_id) is not currently supported, which can cause translations to be missing.");
+			$this->plugin->getLogger()->notice(sprintf("The language you are using (%s) is not currently supported, which can cause translations to be missing.", $language_id));
 			$this->messages = array_map(static fn(string $message) : string => TextFormat::colorize($message), array_merge($this->getRawLanguageData($language_id), $this->getRawLanguageData()));
-			return true;
+		}else{
+			$this->messages = array_map(static fn(string $message) : string => TextFormat::colorize($message), $this->getRawLanguageData($language_id));
 		}
-		$this->messages = array_map(static fn(string $message) : string => TextFormat::colorize($message), $this->getRawLanguageData($language_id));
+		$language_version = $this->messages["language_version"] ?? "";
+		if ($language_version !== $this->language_version) {
+			$this->plugin->getLogger()->notice(sprintf("The language you are using is outdated (%s)-> (%s), which can cause translations to be missing or wrong!", $language_version, $this->language_version));
+		}
 		return true;
 	}
 

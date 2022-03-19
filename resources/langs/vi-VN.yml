@@ -1,6 +1,19 @@
 ---
-LANG_VERSION: 0.1alpha0
+LANG_VERSION: 0.1
 LANG_NAME: Tiếng Việt
+
+mode.group.1: "Tay đôi"
+mode.group.2: "Cặp đôi"
+mode.group.3: "Bộ ba"
+mode.group.4: "Bộ tứ"
+mode.group.5: "Ngũ quân"
+mode.group.6: "Lục chiến"
+mode.group.7: "Thất vệ"
+mode.group.8: "Bát vũ"
+mode.group.9: "Cửu phong"
+mode.group.10: "Đại chiến"
+mode.group.11: "Đại chiến+"
+mode.group.12: "Đại chiến++"
 
 death.arrow: ">> {PLAYER} đã bị bắn bởi {KILLER}."
 death.arrow_player: ">> Bạn đã bị bắn bởi {KILLER}."
