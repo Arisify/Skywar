@@ -445,7 +445,7 @@ class Arena{
 
 	public function getMostRatedMap() : string {
 		$map = array_key_first(array_count_values($this->maps));
-		$this->slots = \SplFixedArray::fromArray($this->plugin->getArenaManager()->getMaps()[]);
+		// $this->slots = \SplFixedArray::fromArray($this->plugin->getArenaManager()->getMaps()[]); Todo: fix the logic
 		return $map; //Performance drops?
 	}
 
