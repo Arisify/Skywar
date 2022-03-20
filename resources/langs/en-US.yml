@@ -2,18 +2,18 @@
 LANG_VERSION: 0.1
 LANG_NAME: English
 
-mode.group.1: "Solos"
-mode.group.2: "Duals"
-mode.group.3: "Trios"
-mode.group.4: "Quads"
-mode.group.5: "Squads"
-mode.group.6: "Hexad"
-mode.group.7: "Heptad"
-mode.group.8: "Octad"
-mode.group.9: "Ennead"
-mode.group.10: "Mega"
-mode.group.11: "Mega Plus"
-mode.group.12: "Mega Pre"
+mode.group.1: Solos
+mode.group.2: Duals
+mode.group.3: Trios
+mode.group.4: Quads
+mode.group.5: Squads
+mode.group.6: Hexad
+mode.group.7: Heptad
+mode.group.8: Octad
+mode.group.9: Ennead
+mode.group.10: Mega
+mode.group.11: Mega Plus
+mode.group.12: Mega Pre
 
 death.arrow: ">> {PLAYER} has been shot by {KILLER}."
 death.arrow_player: ">> You has been shot by {KILLER}."
@@ -50,6 +50,7 @@ chat.building: "TBH, you haven't finished that building..."
 command.banned: "You cannot use this command while playing this!"
 command.noperm: "You don't have command to use this command!"
 
+
 game.chest.refill: ">> All chests has refill!"
 game.countdown_15: 15
 game.countdown_1: 1
@@ -66,9 +67,9 @@ game.left_ingame: ">> {PLAYER} left the game."
 game.start: "GAME STARTED"
 game.restaring: "The game gonna restart in the next {SEC}"
 game.reward: "Congrats, you earned nothing..."
+game.broadcast.winner: "{PLAYER} won a skywar match!"
 
-server.broadcast.winner: "LMAO, {PLAYER} won a skywar match!"
-
+# SCOREBOARD LANGUAGE
 scoreboard.line1: ""
 scoreboard.line2: ""
 scoreboard.line3: ""
@@ -86,6 +87,7 @@ scoreboard.line14: ""
 scoreboard.line15: ""
 scoreboard.title: ""
 
+# FORM LANGUAGE
 form.button.back: "Back"
 
 form.manager.title: "SKYWAR"

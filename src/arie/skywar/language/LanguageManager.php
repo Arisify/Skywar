@@ -22,7 +22,7 @@ final class LanguageManager{
 	];
 
 	private string $filePath;
-	private mixed $language_version;
+	private float $language_version;
 
 	public function __construct(private Skywar $plugin){
 		$this->filePath = $this->plugin->getDataFolder() . "langs" . DIRECTORY_SEPARATOR;
@@ -101,7 +101,7 @@ final class LanguageManager{
 		return $this->languages[$language_id] ?? "Unknown";
 	}
 
-	public function getLanguageVersion() : string{
+	public function getLanguageVersion() : float{
 		return $this->language_version;
 	}
 }

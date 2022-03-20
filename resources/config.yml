@@ -5,6 +5,16 @@ CONFIG_VERSION: 0.1
 
 language: en-US
 
+# Enter chest type (You can use the container id or its plain name: chest, enderchest, hopper, barrel, shulker)
+loots:
+  normal_chest: chest
+  main_chest: enderchest
+  # Spawn treasure at middle or somewhere else?
+  treasure: true
+  treasure_respawn_time: 360
+  # This currently not that customizable, you will use the HIVE ores mining logic, redstone gave absorption
+  ores_mining: true
+
 database:
   # The database provider, mysql or sqlite.
   provider: sqlite
@@ -18,57 +28,62 @@ database:
     password: password
     schema: db_name
     port: 3300
+
   # The database file name.
   sqlite:
     file: players.db
 
-# The map will be archived and saved as a zip file
-skywar.settings-archive_map: true
-# In-game kill counter
-skywar.settings-killcounter: true
-# Broadcast player's winning to all players on the server
-skywar.settings-broadcast_winner: true
-# Save player inventory
-skywar.settings-save_player_inventory: true
-# -1 for no limit arena
-skywar.settings-arena_limit: -1
-# BedrockEconomy only
-skywar.settings-reward: 200
+setting:
+  # The map will be archived and saved as a zip file
+  archive_map: true
+  # The amount of maximum arena, -1 for unlimited (not supported)
+  arena_limit: -1
+  # Broadcast player's winning to all players on the server
+  broadcast_winner: true
+  # Allow player to craft stuff while in-game
+  crafting: true
+  # In-game kill counter
+  kill_counter: true
+  # BedrockEconomy only
+  reward: 200
+  # Save player' data, like: old inventory, old health, hunger, etc
+  # This might slow down your performance
+  save_player_data: true
+  time:
+    countdown: 45
+    opencage: 15
+    game: 1200
+    restart: 15
+    force: 15
 
-skywar.time-countdown: 45
-skywar.time-opencage: 15
-skywar.time-game: 1200
-skywar.time-restart: 15
-skywar.time-force: 15
+world:
+  lobby:
+    pos: 0,0,0
+    name: world
+  waiting:
+    pos: 0,0,0
+    name: world
 
-skywar.world.lobby:
-  - pos: 0,0,0
-  - name: world
-skywar.world.waiting:
-  - pos: 0,0,0
-  - name: world
-
-skywar.commands:
+commands:
   group:
     1: [solo, solos]
     2: [dual, duals]
     3: [trio, trios]
-    4: [solo, solos]
-    5: [solo, solos]
-    6: [solo, solos]
-    7: [solo, solos]
-    8: [solo, solos]
-    9: [solo, solos]
-    10: [solo, solos]
-    11: [solo, solos]
-    12: [solo, solos]
-
-skywar.commands.banned:
-  - /tpa
-  - /tp
-  - /tpaccept
-  - /back
-  - /home
-  - /kill
-  - /suicide
+    4: [quad, quads]
+    5: [squad, squads]
+    6: [hexad, hexads]
+    7: [heptad, heptads]
+    8: [octad, octads]
+    9: [ennead, enneads]
+    10: [mega, megas]
+    11: [megaplus, megap+]
+    12: [megapre, mega++]
+  banned:
+    - /tpa
+    - /tp
+    - /tpaccept
+    - /back
+    - /home
+    - /kill
+    - /suicide
 ...

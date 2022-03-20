@@ -1,0 +1,15 @@
+---
+normal_chest:
+main_chest:
+treasure:
+
+ores:
+  coal: []
+  iron: []
+  gold: []
+  lapis: []
+  redstone: []
+  diamond: []
+  emerald: []
+  netherite: []
+...

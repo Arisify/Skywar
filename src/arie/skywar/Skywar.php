@@ -10,7 +10,7 @@ use pocketmine\plugin\PluginBase;
 use arie\skywar\arena\ArenaManager;
 use arie\skywar\language\LanguageManager;
 use arie\skywar\scoreboard\Scoreboard;
-use arie\yamlcomments\YamlComments;
+use arie\yamlcomments\YamlDocuments;
 
 use dktapps\pmforms\CustomForm;
 use dktapps\pmforms\CustomFormResponse;
@@ -27,7 +27,7 @@ final class Skywar extends PluginBase implements Listener{
 	protected ArenaManager $arena_manager;
 	protected LanguageManager $language;
 	protected Scoreboard $scoreboard;
-	private YamlComments $yamlcomments;
+	private YamlDocuments $yamlcomments;
 
 	public function onLoad() : void {
 		self::$instance = $this;
@@ -38,7 +38,7 @@ final class Skywar extends PluginBase implements Listener{
 		$this->language = new LanguageManager($this);
 		$this->arena_manager = new ArenaManager($this);
 		$this->scoreboard = Scoreboard::getInstance();
-		$this->yamlcomments = new YamlComments($this->getConfig());
+		$this->yamlcomments = new YamlDocuments($this->getConfig());
 	}
 
 	public static function getInstance() : self {
@@ -47,6 +47,7 @@ final class Skywar extends PluginBase implements Listener{
 
 	public function onEnable() : void {
 		$this->getLogger()->info("Nothing here!");
+		$this->getLogger()->info(sprintf("Your currently language is %s (%s), versions %e!", $this->language->getLanguageName(), $this->language->getLanguageId(), $this->language->getLanguageVersion()));
 		$this->getServer()->getCommandMap()->register("skywars", new SkywarCommands($this));
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
@@ -60,7 +61,6 @@ final class Skywar extends PluginBase implements Listener{
 				new MenuOption($this->language->getMessage("form.manager.button-arenalist"), new FormIcon("textures/ui/storageIconColor.png", FormIcon::IMAGE_TYPE_PATH)),
 				new MenuOption($this->language->getMessage("form.manager.button-maplist"), new FormIcon("textures/ui/world_glyph_color_2x.png", FormIcon::IMAGE_TYPE_PATH)),
 				new MenuOption($this->language->getMessage("form.manager.button-language"), new FormIcon("textures/ui/language_glyph_color.png", FormIcon::IMAGE_TYPE_PATH)),
-				"new" => new MenuOption($this->language->getMessage("form.manager.button-language"), new FormIcon("textures/ui/language_glyph_color.png", FormIcon::IMAGE_TYPE_PATH)),
 			],
 			function (Player $player, int $selected) : void {
 				switch ($selected) {
@@ -75,12 +75,8 @@ final class Skywar extends PluginBase implements Listener{
 					case 3:
 						$player->sendForm($this->getLanguageUI());
 						break;
-					case "new":
+					default:
 						$player->sendForm($this->getSkywarManagerUI());
-						break;
-					case 4:
-						$player->sendForm($this->getLanguageUI());
-						break;
 				}
 			}
 		);
@@ -150,7 +146,7 @@ final class Skywar extends PluginBase implements Listener{
 		$this->getConfig()->set("language", $this->language->getLanguageId());
 		
 		$this->saveConfig();
-		$this->yamlcomments->saveDoc();
+		$this->yamlcomments->parseDocuments();
 	}
 
 	/**

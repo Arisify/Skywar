@@ -44,8 +44,8 @@ class ArenaManager{
 		$this->default_restart_time = $this->plugin->getConfig()->get("skywar.time-restart", 15);
 		$this->default_force_time = $this->plugin->getConfig()->get("skywar.time-force", 15);
 
-		if ($this->archiveMap) {
-			$maps = glob($this->map_path, GLOB_ONLYDIR);
+		$maps_data = yaml_parse_file($this->plugin->getDataFolder() . "map.yml");
+		foreach ($maps_data as $map_name => $data) {
 
 		}
 

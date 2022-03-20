@@ -1,0 +1,30 @@
+---
+sample:
+  builder: "xXBuilder09xX"
+  slots:
+    number: 12
+    positions:
+      - 0,0,0
+      - 0,0,0
+      - 0,0,0
+      - 0,0,0
+      - 0,0,0
+      - 0,0,0
+      - 0,0,0
+      - 0,0,0
+      - 0,0,0
+      - 0,0,0
+      - 0,0,0
+      - 0,0,0
+  achive_path: ""
+  chest_positions:
+    normal_chests:
+      - 0,0,0
+      - 0,0,0
+    main_chests:
+      - 0,0,0
+      - 0,0,0
+    treasures:
+      - 0,0,0
+
+...
