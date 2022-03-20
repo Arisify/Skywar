@@ -10,7 +10,7 @@ use pocketmine\plugin\PluginBase;
 use arie\skywar\arena\ArenaManager;
 use arie\skywar\language\LanguageManager;
 use arie\skywar\scoreboard\Scoreboard;
-use arie\yamlcomments\YamlDocuments;
+use arie\yamldocuments\YamlDocuments;
 
 use dktapps\pmforms\CustomForm;
 use dktapps\pmforms\CustomFormResponse;
@@ -146,7 +146,7 @@ final class Skywar extends PluginBase implements Listener{
 		$this->getConfig()->set("language", $this->language->getLanguageId());
 		
 		$this->saveConfig();
-		$this->yamlcomments->parseDocuments();
+		$this->yamlcomments->emitDocuments();
 	}
 
 	/**
