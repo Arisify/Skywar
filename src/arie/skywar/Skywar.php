@@ -10,7 +10,7 @@ use pocketmine\plugin\PluginBase;
 use arie\skywar\arena\ArenaManager;
 use arie\skywar\language\LanguageManager;
 use arie\skywar\scoreboard\Scoreboard;
-use arie\yamldocuments\YamlDocuments;
+use arie\yamlcomments\YamlComments;
 
 use dktapps\pmforms\CustomForm;
 use dktapps\pmforms\CustomFormResponse;
@@ -27,7 +27,7 @@ final class Skywar extends PluginBase implements Listener{
 	protected ArenaManager $arena_manager;
 	protected LanguageManager $language;
 	protected Scoreboard $scoreboard;
-	private YamlDocuments $yamlcomments;
+	private YamlComments $yamlcomments;
 
 	public function onLoad() : void {
 		self::$instance = $this;
@@ -38,7 +38,7 @@ final class Skywar extends PluginBase implements Listener{
 		$this->language = new LanguageManager($this);
 		$this->arena_manager = new ArenaManager($this);
 		$this->scoreboard = Scoreboard::getInstance();
-		$this->yamlcomments = new YamlDocuments($this->getConfig());
+		$this->yamlcomments = new YamlComments($this->getConfig());
 	}
 
 	public static function getInstance() : self {
@@ -146,7 +146,7 @@ final class Skywar extends PluginBase implements Listener{
 		$this->getConfig()->set("language", $this->language->getLanguageId());
 		
 		$this->saveConfig();
-		$this->yamlcomments->emitDocuments();
+		$this->yamlcomments->emitComments();
 	}
 
 	/**
