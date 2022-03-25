@@ -3,15 +3,10 @@ declare(strict_types=1);
 
 namespace arie\skywar;
 
-use pocketmine\event\Listener;
-use pocketmine\player\Player;
-use pocketmine\plugin\PluginBase;
-
 use arie\skywar\arena\ArenaManager;
 use arie\skywar\language\LanguageManager;
 use arie\skywar\scoreboard\Scoreboard;
 use arie\yamlcomments\YamlComments;
-
 use dktapps\pmforms\CustomForm;
 use dktapps\pmforms\CustomFormResponse;
 use dktapps\pmforms\element\Dropdown;
@@ -20,6 +15,9 @@ use dktapps\pmforms\element\Label;
 use dktapps\pmforms\FormIcon;
 use dktapps\pmforms\MenuForm;
 use dktapps\pmforms\MenuOption;
+use pocketmine\event\Listener;
+use pocketmine\player\Player;
+use pocketmine\plugin\PluginBase;
 
 final class Skywar extends PluginBase implements Listener{
 	protected static Skywar $instance;
@@ -29,7 +27,7 @@ final class Skywar extends PluginBase implements Listener{
 	protected Scoreboard $scoreboard;
 	private YamlComments $yamlcomments;
 
-	public function onLoad() : void {
+	public function onLoad() : void{
 		self::$instance = $this;
 		foreach ($this->getResources() as $resource) {
 			$this->saveResource($resource->getFilename());
@@ -39,13 +37,16 @@ final class Skywar extends PluginBase implements Listener{
 		$this->arena_manager = new ArenaManager($this);
 		$this->scoreboard = Scoreboard::getInstance();
 		$this->yamlcomments = new YamlComments($this->getConfig());
+
+		$this->saveConfig();
+		$this->yamlcomments->emitComments();
 	}
 
 	public static function getInstance() : self {
 		return self::$instance;
 	}
 
-	public function onEnable() : void {
+	public function onEnable() : void{
 		$this->getLogger()->info("Nothing here!");
 		$this->getLogger()->info(sprintf("Your currently language is %s (%s), versions %e!", $this->language->getLanguageName(), $this->language->getLanguageId(), $this->language->getLanguageVersion()));
 		$this->getServer()->getCommandMap()->register("skywars", new SkywarCommands($this));
@@ -62,7 +63,7 @@ final class Skywar extends PluginBase implements Listener{
 				new MenuOption($this->language->getMessage("form.manager.button-maplist"), new FormIcon("textures/ui/world_glyph_color_2x.png", FormIcon::IMAGE_TYPE_PATH)),
 				new MenuOption($this->language->getMessage("form.manager.button-language"), new FormIcon("textures/ui/language_glyph_color.png", FormIcon::IMAGE_TYPE_PATH)),
 			],
-			function (Player $player, int $selected) : void {
+			function(Player $player, int $selected) : void{
 				switch ($selected) {
 					case 0:
 						$player->sendForm($this->getArenaSettingsUI());
@@ -89,7 +90,7 @@ final class Skywar extends PluginBase implements Listener{
 			[
 				new MenuOption($this->language->getMessage("form.button.back"), new FormIcon("textures/ui/arrow_left.png", FormIcon::IMAGE_TYPE_PATH))
 			],
-			function (Player $player, int $selected) : void {
+			function(Player $player, int $selected) : void{
 				$player->sendForm($this->getSkywarManagerUI());
 			}
 		);
@@ -135,18 +136,21 @@ final class Skywar extends PluginBase implements Listener{
 		);
 	}
 
-	public function onDisable() : void {
-		$this->getConfig()->set("skywar.time-countdown", $this->arena_manager->getDefaultCountdownTime());
-		$this->getConfig()->set("skywar.time-opencage", $this->arena_manager->getDefaultOpencageTime());
-		$this->getConfig()->set("skywar.time-game", $this->arena_manager->getDefaultGameTime());
-		$this->getConfig()->set("skywar.time-restart", $this->arena_manager->getDefaultRestartTime());
-		$this->getConfig()->set("skywar.time-force", $this->arena_manager->getDefaultForceTime());
-		$this->getConfig()->set("skywar.settings-arena_limit", $this->arena_manager->getArenaLimit());
+	/**
+	 * @throws \JsonException
+	 */
+	public function onDisable() : void{
+		$this->getConfig()->set("settings.time.countdown", $this->arena_manager->getDefaultCountdownTime());
+		$this->getConfig()->set("settings.time.opencage", $this->arena_manager->getDefaultOpencageTime());
+		$this->getConfig()->set("settings.time.game", $this->arena_manager->getDefaultGameTime());
+		$this->getConfig()->set("settings.time.restart", $this->arena_manager->getDefaultRestartTime());
+		$this->getConfig()->set("settings.time.force", $this->arena_manager->getDefaultForceTime());
+		$this->getConfig()->set("settings-arena_limit", $this->arena_manager->getArenaLimit());
 
 		$this->getConfig()->set("language", $this->language->getLanguageId());
-		
-		$this->saveConfig();
-		$this->yamlcomments->emitComments();
+
+		//$this->saveConfig();
+		//$this->yamlcomments->emitComments();
 	}
 
 	/**

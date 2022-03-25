@@ -33,7 +33,7 @@ database:
   sqlite:
     file: players.db
 
-setting:
+settings:
   # The map will be archived and saved as a zip file
   archive_map: true
   # The amount of maximum arena, -1 for unlimited (not supported)
@@ -66,9 +66,10 @@ world:
 
 commands:
   group:
-    1: [solo, solos]
+    1: [solo, solos] #Hi
     2: [dual, duals]
     3: [trio, trios]
+    #Beta
     4: [quad, quads]
     5: [squad, squads]
     6: [hexad, hexads]
