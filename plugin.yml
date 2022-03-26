@@ -1,7 +1,7 @@
 name: Skywar
 author: arie
 main: arie\skywar\Skywar
-version: 0.1alpha1
+version: 0.1alpha2
 api: 4.0.0
 versions:
   config: 0.1
@@ -10,7 +10,7 @@ versions:
 permissions:
   skywar.cmd:
     description: Allows players to use BreakPoint commands
-    default: false
+    default: op
   skywar.join:
     description: Allows players to join arena
     default: true
@@ -22,7 +22,10 @@ permissions:
     default: true
   skywar.chest_vote:
     description: Allows players to vote for the chest fill
-    default: false
+    default: true
   skywar.vip:
     description: Allows players to have vip, included chest voting
+    default: false
+  skywar.boost:
+    description: Allows players to boost the waiting time
     default: false

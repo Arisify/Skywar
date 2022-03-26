@@ -7,6 +7,7 @@ use arie\skywar\arena\ArenaManager;
 use arie\skywar\language\LanguageManager;
 use arie\skywar\scoreboard\Scoreboard;
 use arie\yamlcomments\YamlComments;
+
 use dktapps\pmforms\CustomForm;
 use dktapps\pmforms\CustomFormResponse;
 use dktapps\pmforms\element\Dropdown;
@@ -15,6 +16,7 @@ use dktapps\pmforms\element\Label;
 use dktapps\pmforms\FormIcon;
 use dktapps\pmforms\MenuForm;
 use dktapps\pmforms\MenuOption;
+
 use pocketmine\event\Listener;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
@@ -44,8 +46,7 @@ final class Skywar extends PluginBase implements Listener{
 	}
 
 	public function onEnable() : void{
-		$this->getLogger()->info("Nothing here!");
-		$this->getLogger()->info(sprintf("Your currently language is %s (%s), versions %e!", $this->language->getLanguageName(), $this->language->getLanguageId(), $this->language->getLanguageVersion()));
+		$this->getLogger()->info(sprintf($this->language->getConsoleMessage('language.info'), $this->language->getLanguageName($this->language->getLanguageId()), $this->language->getLanguageId(), $this->language->getLanguageVersion()));
 		$this->getServer()->getCommandMap()->register("skywars", new SkywarCommands($this));
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
@@ -127,7 +128,7 @@ final class Skywar extends PluginBase implements Listener{
 			function(Player $submitter, CustomFormResponse $response) use ($languageKeys) : void{
 				$new_lang_id = $languageKeys[$response->getInt("language")];
 				if ($this->language->getLanguageId() !== $new_lang_id) {
-					$this->language->reMap($new_lang_id);
+					$this->language->remap($new_lang_id);
 				}
 			}
 		);
