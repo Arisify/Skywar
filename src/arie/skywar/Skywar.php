@@ -37,9 +37,6 @@ final class Skywar extends PluginBase implements Listener{
 		$this->arena_manager = new ArenaManager($this);
 		$this->scoreboard = Scoreboard::getInstance();
 		$this->yamlcomments = new YamlComments($this->getConfig());
-
-		$this->saveConfig();
-		$this->yamlcomments->emitComments();
 	}
 
 	public static function getInstance() : self {
@@ -149,8 +146,8 @@ final class Skywar extends PluginBase implements Listener{
 
 		$this->getConfig()->set("language", $this->language->getLanguageId());
 
-		//$this->saveConfig();
-		//$this->yamlcomments->emitComments();
+		$this->saveConfig();
+		$this->yamlcomments->emitComments();
 	}
 
 	/**

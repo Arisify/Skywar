@@ -18,7 +18,7 @@ class ArenaManager{
 	protected int $default_restart_time = 15;
 	protected int $default_force_time = 15;
 
-	private int $arena_limit = -1; //-1 means no limit
+	private int $arena_limit; //-1 means no limit
 
 	private bool $savePlayerData;
 
@@ -48,7 +48,7 @@ class ArenaManager{
 		foreach ($maps_data as $map_name => $data) {
 
 		}
-
+/*
 		foreach ($maps as $map) {
 			$map_path = $this->map_path . $map . "zip";
 			$data_path = $this->map_path . $map . "json";
@@ -64,6 +64,7 @@ class ArenaManager{
 			}
 			$this->maps[$map] = \SplFixedArray::fromArray($data);
 		}
+*/
 	}
 
 	public function setLobbyLocation(Position $position) : bool{
