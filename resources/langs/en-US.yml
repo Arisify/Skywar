@@ -112,4 +112,13 @@ form.maps.text: "Maps List"
 form.language.title: "SKYWAR"
 form.language.text: "&6Current language: &a{LANGUAGE_NAME} ({LANGUAGE_ID})"
 form.language.dropdown: "Chose a language: "
+
+language.info: The default language has been set to %s (%s), versions %s!
+language.key-not-found: There are no key specific to "%s" in %s, return empty!
+language.not-exist: The language which you are using (%s) is not exist, using default language (%s)!
+language.outdated: The language you are using is outdated (%s) -> (%s), which can cause translations to be missing or wrong!
+language.not-supported: The language you are using (%s) is not currently supported, which can cause translations to be missing.
+language.unknown: unknown
+
+error.dir-not-found: Directory cannot found be found at "%s".
 ...

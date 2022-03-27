@@ -3,9 +3,13 @@ declare(strict_types=1);
 
 namespace arie\skywar\arena;
 
+use arie\skywar\language\LanguageManager;
+use arie\skywar\Skywar;
+use dktapps\pmforms\MenuForm;
 use pocketmine\block\BlockLegacyIds;
 use pocketmine\block\VanillaBlocks;
 use pocketmine\event\entity\EntityDamageEvent;
+use pocketmine\event\entity\EntityTeleportEvent;
 use pocketmine\event\player\PlayerCommandPreprocessEvent;
 use pocketmine\event\player\PlayerExhaustEvent;
 use pocketmine\event\player\PlayerInteractEvent;
@@ -19,11 +23,6 @@ use pocketmine\player\GameMode;
 use pocketmine\player\Player;
 use pocketmine\world\Position;
 use pocketmine\world\World;
-
-use arie\skywar\Skywar;
-use arie\skywar\language\LanguageManager;
-
-use dktapps\pmforms\MenuForm;
 
 class Arena{
 	//Game states
@@ -71,7 +70,7 @@ class Arena{
 		private int    $id,
 		private string $name,
 		array          $data = []
-	) {
+	){
 		$worldManager = $this->plugin->getServer()->getWorldManager();
 		$this->lobby = $this->plugin->getArenaManager()->getDefaultLobby();
 		$this->waiting_lobby = $this->plugin->getArenaManager()->getWaitingPosition();
@@ -79,15 +78,15 @@ class Arena{
 		$this->schedule = new ArenaSchedule($this);
 	}
 
-	public function getName() : string {
+	public function getName() : string{
 		return $this->name;
 	}
 
-	public function getId() : int {
+	public function getId() : int{
 		return $this->id;
 	}
 
-	public function isEnabled() : bool {
+	public function isEnabled() : bool{
 		return $this->game_state !== self::STATE_UNAVAILABLE;
 	}
 
@@ -104,8 +103,7 @@ class Arena{
 	}
 
 
-
-	public function join(Player $player) : bool {
+	public function join(Player $player) : bool{
 		if (!$this->isEnabled() && $this->player_amount > $this->slots->getSize()) {
 			return false;
 		}
@@ -151,7 +149,7 @@ class Arena{
 		return true;
 	}
 
-	public function left(Player $player, string $message = "", int $state = self::PLAYER_WAITING) : bool {
+	public function left(Player $player, string $message = "", int $state = self::PLAYER_WAITING) : bool{
 		if (!isset($this->players[$player->getName()])) {
 			return false;
 		}
@@ -201,7 +199,7 @@ class Arena{
 	}
 
 	//Called when the last 15' countdown
-	public function prepareMap() : bool {
+	public function prepareMap() : bool{
 		$world = $this->plugin->getArenaManager()->makeMap($this);
 		if ($world === null) {
 			foreach ($this->players as $player) {
@@ -214,7 +212,7 @@ class Arena{
 		return true;
 	}
 
-	public function poststart() : bool {
+	public function poststart() : bool{
 		if (!$this->isEnabled() && count($this->players) > $this->slots->getSize()) { //This is the wrong logic, my brain cannot handle it now...
 			return false;
 		}
@@ -229,7 +227,7 @@ class Arena{
 		return true;
 	}
 
-	public function start() : bool {
+	public function start() : bool{
 		foreach ($this->players as $player) {
 			if ($this->hasCage()) {
 				$this->addCage($player->getPosition(), VanillaBlocks::AIR());
@@ -239,40 +237,25 @@ class Arena{
 		return true;
 	}
 
-	public function canRestart() : bool {
+	public function canRestart() : bool{
 		return $this->player_amount < 2;
 	}
 
-	public function restart() : bool {
+	public function restart() : bool{
 
 		return true;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	public function getPlayerAmount() : int{
 		return $this->player_amount;
 	}
 
-	public function hasCage() : bool {
+	public function hasCage() : bool{
 		return $this->hasCage;
 	}
 
-	private function addCage(Position $pos, $block) : void {
+	private function addCage(Position $pos, $block) : void{
 		$offsets = [
 			[0, 2, 0], [1, 1, 0], [0, 1, 1], [0, 1, -1], [-1, 1, 0],
 			[0, -1, 0], [1, 0, 0], [-1, 0, 0], [0, 0, 1], [0, 0, -1]
@@ -286,19 +269,19 @@ class Arena{
 		}
 	}
 
-	public function getWorld() : ?World {
+	public function getWorld() : ?World{
 		return $this->world;
 	}
 
-	public function getMaxSlot() : int {
+	public function getMaxSlot() : int{
 		return $this->slots->count();
 	}
 
-	public function getPlayers() : array {
+	public function getPlayers() : array{
 		return $this->players;
 	}
 
-	public function addSpectator(Player $player) : void {
+	public function addSpectator(Player $player) : void{
 		$this->spectators[$player->getName()] = $player;
 		unset($this->players[$player->getName()]);
 		$player->setGamemode(GameMode::SPECTATOR());
@@ -313,7 +296,7 @@ class Arena{
 		$this->giveHotbarItems($player, self::PLAYER_SPECTATOR);
 	}
 
-	public function giveHotbarItems(Player $player, int $state = 0) : void {
+	public function giveHotbarItems(Player $player, int $state = 0) : void{
 		switch ($state) {
 			case self::PLAYER_SPECTATOR:
 				$player->getInventory()->setItem(0, $this->getItemWithStringTag(VanillaItems::COMPASS()->setCustomName("Options"), "options"));
@@ -327,19 +310,19 @@ class Arena{
 		}
 	}
 
-	private function getItemWithStringTag(Item $item, string $string) : Item {
+	private function getItemWithStringTag(Item $item, string $string) : Item{
 		$item->getNamedTag()->setString("sw-items", $string);
 		return $item;
 	}
 
-	public function reschedule() : void {
+	public function reschedule() : void{
 		$this->plugin->getArenaManager()->reloadWorld($this->world);
 		$this->players = [];
 		$this->spectators = [];
 		$this->players_old_data = [];
 	}
 
-	public function onDamage(EntityDamageEvent $event) : void {
+	public function onDamage(EntityDamageEvent $event) : void{
 		$player = $event->getEntity();
 		if (!$player instanceof Player) {
 			return;
@@ -362,34 +345,28 @@ class Arena{
 		}
 	}
 
-	public function onWorldUnload(WorldUnloadEvent $event) : void {
-		if ($event->getWorld() === $this->world) {
-			$this->reschedule();
-		}
-	}
-
-	public function onQuit(PlayerQuitEvent $event) : void {
+	public function onQuit(PlayerQuitEvent $event) : void{
 		$player = $event->getPlayer();
 		if (isset($this->players[$player->getName()]) || isset($this->spectators[$player->getName()])) {
 			unset($this->players[$player->getName()], $this->spectators[$player->getName()], $this->players_old_data[$player->getName()]);
 		}
 	}
 
-	public function onExhaust(PlayerExhaustEvent $event) : void {
+	public function onExhaust(PlayerExhaustEvent $event) : void{
 		$player = $event->getPlayer();
 		if ($this->game_state !== self::STATE_IN_GAME && isset($this->players[$player->getName()])) {
 			$event->cancel();
 		}
 	}
 
-	public function onMove(PlayerMoveEvent $event) : void {
+	public function onMove(PlayerMoveEvent $event) : void{
 		$player = $event->getPlayer();
 		if ($this->game_state === self::STATE_COUNTDOWN && isset($this->players[$player->getName()])) {
 			$event->cancel();
 		}
 	}
 
-	public function onCommandPreprocess(PlayerCommandPreprocessEvent $event) : void {
+	public function onCommandPreprocess(PlayerCommandPreprocessEvent $event) : void{
 		$player = $event->getPlayer();
 		$cmd = $event->getMessage();
 		if ($cmd === "/kill") {
@@ -398,7 +375,7 @@ class Arena{
 		}
 	}
 
-	public function onItemUse(PlayerItemUseEvent $event) : void {
+	public function onItemUse(PlayerItemUseEvent $event) : void{
 		$player = $event->getPlayer();
 		if (isset($this->players[$player->getName()])) {
 			$item = $event->getItem();
@@ -420,7 +397,7 @@ class Arena{
 		}
 	}
 
-	public function onInteract(PlayerInteractEvent $event) : void {
+	public function onInteract(PlayerInteractEvent $event) : void{
 		$player = $event->getPlayer();
 		if (isset($this->players[$player->getName()])) {
 			$block = $event->getBlock();
@@ -437,18 +414,36 @@ class Arena{
 		}
 	}
 
-	public function getMostRatedMap() : string {
+	public function onEntityTeleport(EntityTeleportEvent $event) : void{
+		$player = $event->getEntity();
+		if ($player instanceof Player) {
+			if (isset($this->players[$player->getName()])) {
+				$this->left($player);
+			}
+			if (isset($this->spectators[$player->getName()])) {
+				$this->left($player);
+			}
+		}
+	}
+
+	public function onWorldUnload(WorldUnloadEvent $event) : void{
+		if ($event->getWorld()->getFolderName() === $this->world->getFolderName()) {
+			$this->reschedule();
+		}
+	}
+
+	public function getMostRatedMap() : string{
 		$map = array_key_first(array_count_values($this->maps));
 		// $this->slots = \SplFixedArray::fromArray($this->plugin->getArenaManager()->getMaps()[]); Todo: fix the logic
 		return $map; //Performance drops?
 	}
 
-	private function getMapVotingForm(Player $player) : ?MenuForm {
+	private function getMapVotingForm(Player $player) : ?MenuForm{
 		return new MenuForm(
 			"SKYWAR",
 			"Tap any button to vote for your map",
 			array_map(static fn($v) => $v["name"], $this->plugin->getArenaManager()->getMaps()),
-			function (Player $player, int $selected) : void {
+			function(Player $player, int $selected) : void{
 				$this->maps[$player->getName()] = $this->plugin->getArenaManager()->getMaps()[$selected]["name"];
 			},
 		);
