@@ -111,4 +111,13 @@ form.maps.text: "Danh sách map"
 form.language.title: "SKYWAR"
 form.language.text: "&6Ngôn ngữ hiện tại: &a{LANGUAGE_NAME} ({LANGUAGE_ID})"
 form.language.dropdown: "Chọn ngôn ngữ: {LANGUAGE_ID}"
+
+language.info: Ngôn ngữ mặc định đã được cài đặt thành %s (%s), phiên bản %s!
+language.key-not-found: Không tìm thấy chì khóa "%s" trong %s, từ khóa mặc định sẽ được trả lại!
+language.not-exist: Ngôn ngữ bạn muốn (%s) không tồn tại, trả lại ngôn ngữ cũ (%s)!
+language.outdated: Ngôn ngữ bạn đang sử dụng đã lỗi thời (%s) -> (%s), xin hãy cập nhật để có bản dịch đầy đủ!
+language.not-supported: Ngôn ngữ bạn đang sử dụng (%s) hiện tại không được hỗ trợ, các từ khóa còn thiếu sẽ được thay bằng ngôn ngữ mặc định.
+language.unknown: không rõ
+
+error.dir-not-found: Thư mục không tồn tại tại "%s".
 ...

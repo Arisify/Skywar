@@ -7,7 +7,6 @@ use arie\skywar\arena\ArenaManager;
 use arie\skywar\language\LanguageManager;
 use arie\skywar\scoreboard\Scoreboard;
 use arie\yamlcomments\YamlComments;
-
 use dktapps\pmforms\CustomForm;
 use dktapps\pmforms\CustomFormResponse;
 use dktapps\pmforms\element\Dropdown;
@@ -16,17 +15,17 @@ use dktapps\pmforms\element\Label;
 use dktapps\pmforms\FormIcon;
 use dktapps\pmforms\MenuForm;
 use dktapps\pmforms\MenuOption;
-
 use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerCommandPreprocessEvent;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 
 final class Skywar extends PluginBase implements Listener{
-	protected static Skywar $instance;
+	private static Skywar $instance;
 
-	protected ArenaManager $arena_manager;
-	protected LanguageManager $language;
-	protected Scoreboard $scoreboard;
+	private ArenaManager $arena_manager;
+	private LanguageManager $language;
+	private Scoreboard $scoreboard;
 	private YamlComments $yamlcomments;
 
 	public function onLoad() : void{
@@ -41,12 +40,12 @@ final class Skywar extends PluginBase implements Listener{
 		$this->yamlcomments = new YamlComments($this->getConfig());
 	}
 
-	public static function getInstance() : self {
+	public static function getInstance() : self{
 		return self::$instance;
 	}
 
 	public function onEnable() : void{
-		$this->getLogger()->info(sprintf($this->language->getConsoleMessage('language.info'), $this->language->getLanguageName($this->language->getLanguageId()), $this->language->getLanguageId(), $this->language->getLanguageVersion()));
+		$this->getLogger()->info(sprintf($this->language->getMessage('language.set'), $this->language->getLanguageName($this->language->getLanguageId()), $this->language->getLanguageId(), $this->language->getLanguageVersion()));
 		$this->getServer()->getCommandMap()->register("skywars", new SkywarCommands($this));
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
@@ -128,10 +127,21 @@ final class Skywar extends PluginBase implements Listener{
 			function(Player $submitter, CustomFormResponse $response) use ($languageKeys) : void{
 				$new_lang_id = $languageKeys[$response->getInt("language")];
 				if ($this->language->getLanguageId() !== $new_lang_id) {
+					//$submitter->sendMessage($this->language->getLanguageName());
 					$this->language->remap($new_lang_id);
 				}
 			}
 		);
+	}
+
+	public function onCommandPreprocess(PlayerCommandPreprocessEvent $event) : void{
+		$player = $event->getPlayer();
+		$cmd = $event->getMessage();
+		print_r($cmd);
+		if ($cmd === "/kill") {
+			$player->sendMessage("You cannot use this command while in game!");
+			$event->cancel();
+		}
 	}
 
 	/**
@@ -154,11 +164,11 @@ final class Skywar extends PluginBase implements Listener{
 	/**
 	 * @return ArenaManager|null
 	 */
-	public function getArenaManager() : ?ArenaManager {
+	public function getArenaManager() : ?ArenaManager{
 		return $this->arena_manager;
 	}
 
-	public function getLanguage() : ?LanguageManager {
+	public function getLanguage() : ?LanguageManager{
 		return $this->language;
 	}
 }

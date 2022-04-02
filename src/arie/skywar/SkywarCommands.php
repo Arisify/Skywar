@@ -3,22 +3,21 @@ declare(strict_types=1);
 
 namespace arie\skywar;
 
+use arie\skywar\arena\Arena;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
-
-use arie\skywar\arena\Arena;
 
 class SkywarCommands extends Command{
 
 	private Skywar $plugin;
 
-	public function __construct(Skywar $plugin) {
+	public function __construct(Skywar $plugin){
 		parent::__construct("sw", "Allow you to modify and join skywar", "/sw addmap|join|list|ui", []);
 		$this->plugin = $plugin;
 	}
 
-	public function execute(CommandSender $sender, string $commandLabel, array $args) : bool {
+	public function execute(CommandSender $sender, string $commandLabel, array $args) : bool{
 		$arenaManager = $this->plugin->getArenaManager();
 		if (!isset($args[0])) {
 			$sender->sendMessage($this->getUsage());
@@ -67,6 +66,17 @@ class SkywarCommands extends Command{
 				}
 				$sender->sendForm($this->plugin->getSkywarManagerUI());
 				break;
+			case "lang":
+				if (!isset($args[1])) {
+					if ($sender instanceof Player) {
+						$sender->sendForm($this->plugin->getLanguageUI());
+						break;
+					}
+					$sender->sendMessage("usuage: /sw lang <lang-id/list>");
+					break;
+				}
+				$this->plugin->getLanguage()->remap($args[1]);
+				break;
 			default:
 				$sender->sendMessage($this->getUsage());
 		}
@@ -76,7 +86,7 @@ class SkywarCommands extends Command{
 	/**
 	 * @return Skywar
 	 */
-	public function getPlugin() : Skywar {
+	public function getPlugin() : Skywar{
 		return $this->plugin;
 	}
 }

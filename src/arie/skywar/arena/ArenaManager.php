@@ -3,11 +3,9 @@ declare(strict_types=1);
 
 namespace arie\skywar\arena;
 
+use arie\skywar\Skywar;
 use pocketmine\world\Position;
 use pocketmine\world\World;
-
-use pocketmine\world\WorldManager;
-use arie\skywar\Skywar;
 
 class ArenaManager{
 	private array $arenas = [];
@@ -31,7 +29,7 @@ class ArenaManager{
 	public array $commandsBanLists;
 	private bool $archiveMap;
 
-	public function __construct(private Skywar $plugin) {
+	public function __construct(private Skywar $plugin){
 		$this->map_path = $this->plugin->getDataFolder() . "maps/";
 		$this->commandsBanLists = (array) $this->plugin->getConfig()->get("skywar.commands.banned", []);
 		$this->savePlayerData = (bool) $this->plugin->getConfig()->get("skywar.settings-save_player_inventory", true);
@@ -40,7 +38,7 @@ class ArenaManager{
 
 		$this->default_countdown_time = $this->plugin->getConfig()->get("skywar.time-countdown", 45);
 		$this->default_opencage_time = $this->plugin->getConfig()->get("skywar.time-opencage", 15);
-		$this->default_game_time = $this->plugin->getConfig()->get("skywar.time-game", 20*60);
+		$this->default_game_time = $this->plugin->getConfig()->get("skywar.time-game", 20 * 60);
 		$this->default_restart_time = $this->plugin->getConfig()->get("skywar.time-restart", 15);
 		$this->default_force_time = $this->plugin->getConfig()->get("skywar.time-force", 15);
 
@@ -48,23 +46,23 @@ class ArenaManager{
 		foreach ($maps_data as $map_name => $data) {
 
 		}
-/*
-		foreach ($maps as $map) {
-			$map_path = $this->map_path . $map . "zip";
-			$data_path = $this->map_path . $map . "json";
-			if (($this->archiveMap && !is_file($map_path)) || !is_file($data_path)) {
-				$this->plugin->getLogger()->notice("Maps file is corrupted or missing");
-				continue;
-			}
-			try {
-				$data = json_decode($data_path, false, 512, JSON_THROW_ON_ERROR);
-			} catch (\JsonException $e) {
-				$this->plugin->getLogger()->notice("Maps file is corrupted or missing");
-				continue;
-			}
-			$this->maps[$map] = \SplFixedArray::fromArray($data);
-		}
-*/
+		/*
+				foreach ($maps as $map){
+					$map_path = $this->map_path . $map . "zip";
+					$data_path = $this->map_path . $map . "json";
+					if (($this->archiveMap && !is_file($map_path)) || !is_file($data_path)){
+						$this->plugin->getLogger()->notice("Maps file is corrupted or missing");
+						continue;
+					}
+					try{
+						$data = json_decode($data_path, false, 512, JSON_THROW_ON_ERROR);
+					} catch (\JsonException $e){
+						$this->plugin->getLogger()->notice("Maps file is corrupted or missing");
+						continue;
+					}
+					$this->maps[$map] = \SplFixedArray::fromArray($data);
+				}
+		*/
 	}
 
 	public function setLobbyLocation(Position $position) : bool{
@@ -97,12 +95,12 @@ class ArenaManager{
 		if ($zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === true) {
 			$dir = opendir($worldPath);
 
-			while($file = readdir($dir)) {
-				if(is_file($worldPath . $file)) {
+			while ($file = readdir($dir)) {
+				if (is_file($worldPath . $file)) {
 					$zip->addFile($worldPath . $file, $file);
 				}
 			}
-			$zip ->close();
+			$zip->close();
 			return true;
 		}
 		$zip ->close();
@@ -145,7 +143,7 @@ class ArenaManager{
 		//$toPath   = $world->getServer()->getDataPath() . "worlds/";
 
 		//$this->reloadMap($toPath);
-		//if (rename($toPath . $map, $toPath . "arie-" . $arena->getId())) {
+		//if (rename($toPath . $map, $toPath . "arie-" . $arena->getId())){
 		//	return $this->worldManager->getWorldByName("arie-" . $arena->getId());
 		//}
 		//unlink($toPath . $map);
@@ -172,7 +170,7 @@ class ArenaManager{
 		$arena = null;
 		$arenas = [];
 		$i = -1;
-		foreach($this->arenas as $a) {
+		foreach ($this->arenas as $a) {
 			if (!$a->isEnabled()) {
 				continue;
 			}
@@ -193,70 +191,70 @@ class ArenaManager{
 	/**
 	 * @return array|mixed
 	 */
-	public function getCommandsBanLists() : mixed {
+	public function getCommandsBanLists() : mixed{
 		return $this->commandsBanLists;
 	}
 
 	/**
 	 * @return bool|mixed
 	 */
-	public function isSavePlayerData() : mixed {
+	public function isSavePlayerData() : mixed{
 		return $this->savePlayerData;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getDefaultCountdownTime() : int {
+	public function getDefaultCountdownTime() : int{
 		return $this->default_countdown_time;
 	}
 
 	/**
 	 * @param int $default_countdown_time
 	 */
-	public function setDefaultCountdownTime(int $default_countdown_time) : void {
+	public function setDefaultCountdownTime(int $default_countdown_time) : void{
 		$this->default_countdown_time = $default_countdown_time;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getDefaultOpencageTime() : int {
+	public function getDefaultOpencageTime() : int{
 		return $this->default_opencage_time;
 	}
 
 	/**
 	 * @param int $default_opencage_time
 	 */
-	public function setDefaultOpencageTime(int $default_opencage_time) : void {
+	public function setDefaultOpencageTime(int $default_opencage_time) : void{
 		$this->default_opencage_time = $default_opencage_time;
 	}
 
 	/**
 	 * @return float|int
 	 */
-	public function getDefaultGameTime() : float|int {
+	public function getDefaultGameTime() : float|int{
 		return $this->default_game_time;
 	}
 
 	/**
 	 * @param float|int $default_game_time
 	 */
-	public function setDefaultGameTime(float|int $default_game_time) : void {
+	public function setDefaultGameTime(float|int $default_game_time) : void{
 		$this->default_game_time = $default_game_time;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getDefaultRestartTime() : int {
+	public function getDefaultRestartTime() : int{
 		return $this->default_restart_time;
 	}
 
 	/**
 	 * @param int $default_restart_time
 	 */
-	public function setDefaultRestartTime(int $default_restart_time) : void {
+	public function setDefaultRestartTime(int $default_restart_time) : void{
 		$this->default_restart_time = $default_restart_time;
 	}
 

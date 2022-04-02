@@ -9,22 +9,22 @@ versions:
 
 permissions:
   skywar.cmd:
-    description: Allows players to use BreakPoint commands
+    description: Allows players to use Skywar commands
     default: op
   skywar.join:
-    description: Allows players to join arena
+    description: Allows players to join Arena
     default: true
   skywar.map_vote:
-    description: Allows players to vote for the map
+    description: Allows players to vote for the Maps
     default: true
   skywar.kit_vote:
-    description: Allows players to vote for the kit
+    description: Allows players to vote for the Kits
     default: true
   skywar.chest_vote:
-    description: Allows players to vote for the chest fill
-    default: true
+    description: Allows players to vote for the Chest Fills
+    default: false
   skywar.vip:
-    description: Allows players to have vip, included chest voting
+    description: Allows players to have Vip, included chest voting
     default: false
   skywar.boost:
     description: Allows players to boost the waiting time

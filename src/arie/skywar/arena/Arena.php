@@ -369,6 +369,7 @@ class Arena{
 	public function onCommandPreprocess(PlayerCommandPreprocessEvent $event) : void{
 		$player = $event->getPlayer();
 		$cmd = $event->getMessage();
+		print_r($cmd);
 		if ($cmd === "/kill") {
 			$player->sendMessage("You cannot use this command while in game!");
 			$event->cancel();
