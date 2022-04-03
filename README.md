@@ -5,10 +5,10 @@
 [![Star](https://img.shields.io/github/stars/Arisify/Skywar)](https://github.com/Arisify/Skywar/stargazers)
 
 ## ✨ Features
-- Custom language ✔
-- Documented config ✔
-- Custom gameplay ✔
-- UI settings 
+- [X] Custom language
+- [X] Documented config
+- [X] Custom gameplay
+- [ ] UI settings 
 
 ## 💬 Commands
 
