@@ -37,7 +37,6 @@ final class LanguageManager{
 			$this->plugin->saveResource("langs/" . $lang . ".yml");
 		}
 
-
 		foreach (glob($this->filePath . "*.yml") as $lang) {
 			$data = yaml_parse_file($lang);
 			$id = basename($lang, '.yml');
