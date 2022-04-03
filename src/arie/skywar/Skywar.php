@@ -127,8 +127,7 @@ final class Skywar extends PluginBase implements Listener{
 			function(Player $submitter, CustomFormResponse $response) use ($languageKeys) : void{
 				$new_lang_id = $languageKeys[$response->getInt("language")];
 				if ($this->language->getLanguageId() !== $new_lang_id) {
-					//$submitter->sendMessage($this->language->getLanguageName());
-					$this->language->remap($new_lang_id);
+					$this->language->setLanguage($new_lang_id);
 				}
 			}
 		);
@@ -148,14 +147,14 @@ final class Skywar extends PluginBase implements Listener{
 	 * @throws \JsonException
 	 */
 	public function onDisable() : void{
-		$this->getConfig()->set("settings.time.countdown", $this->arena_manager->getDefaultCountdownTime());
-		$this->getConfig()->set("settings.time.opencage", $this->arena_manager->getDefaultOpencageTime());
-		$this->getConfig()->set("settings.time.game", $this->arena_manager->getDefaultGameTime());
-		$this->getConfig()->set("settings.time.restart", $this->arena_manager->getDefaultRestartTime());
-		$this->getConfig()->set("settings.time.force", $this->arena_manager->getDefaultForceTime());
-		$this->getConfig()->set("settings-arena_limit", $this->arena_manager->getArenaLimit());
+		$this->getConfig()->setNested("settings.time.countdown", $this->arena_manager->getDefaultCountdownTime());
+		$this->getConfig()->setNested("settings.time.opencage", $this->arena_manager->getDefaultOpencageTime());
+		$this->getConfig()->setNested("settings.time.game", $this->arena_manager->getDefaultGameTime());
+		$this->getConfig()->setNested("settings.time.restart", $this->arena_manager->getDefaultRestartTime());
+		$this->getConfig()->setNested("settings.time.force", $this->arena_manager->getDefaultForceTime());
+		$this->getConfig()->setNested("settings-arena_limit", $this->arena_manager->getArenaLimit());
 
-		$this->getConfig()->set("language", $this->language->getLanguageId());
+		$this->getConfig()->setNested("language.default", $this->language->getLanguageId());
 
 		$this->saveConfig();
 		$this->yamlcomments->emitComments();

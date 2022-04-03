@@ -9,7 +9,7 @@ use pocketmine\utils\TextFormat;
 final class LanguageManager{
 	protected string $language_id;
 	protected array $language_list = [];
-	protected array $raw_language;
+	protected array $raw_language = [];
 	protected array $languages = [];
 
 	public const DEFAULT_LANGUAGE = "en-US";
@@ -28,7 +28,9 @@ final class LanguageManager{
 
 	public function __construct(private Skywar $plugin){
 		$this->filePath = $this->plugin->getDataFolder() . "langs/";
-		$this->language_version = $this->plugin->getDescription()->getMap()["versions"]["language"];
+		$this->language_version = (float) $this->plugin->getDescription()->getMap()["versions"]["language"];
+		$language_id = $this->plugin->getConfig()->get("language", self::DEFAULT_LANGUAGE);
+
 		if (!@mkdir($concurrentDirectory = $this->filePath) && !is_dir($concurrentDirectory)) {
 			throw new \RuntimeException(sprintf($this->getMessage('error.dir-not-found'), $concurrentDirectory));
 		}
@@ -44,7 +46,6 @@ final class LanguageManager{
 			$this->language_list[$id] = $language_name;
 			$this->languages[$id] =  array_map(static fn(string $message) : string => TextFormat::colorize($message), array_diff_key($data, self::LANGUAGE_INFO));
 		}
-		$language_id = $this->plugin->getConfig()->get("language", self::DEFAULT_LANGUAGE);
 		if (!array_key_exists($language_id, $this->language_list)) {
 			$this->plugin->getLogger()->notice(sprintf($this->getMessage('language.default-not-exist'), $language_id, self::DEFAULT_LANGUAGE));
 			$language_id = self::DEFAULT_LANGUAGE;
@@ -52,35 +53,27 @@ final class LanguageManager{
 		$this->language_id = $language_id;
 	}
 
-	/*public function remap(string $language_id = self::DEFAULT_LANGUAGE) : bool{
-		if (isset($this->language_id) && $language_id === $this->language_id) {
-			$this->plugin->getLogger()->info(sprintf($this->getMessage('language.already-set'), $this->getLanguageName(), $language_id));
+	public function setLanguage(string $language_id = self::DEFAULT_LANGUAGE) : bool{
+		if ($this->language_id === $language_id) {
 			return false;
 		}
-		if (!is_file($this->filePath . $language_id . ".yml")) {
-			$this->plugin->getLogger()->notice(sprintf($this->getMessage('language.not-exist'), $language_id, $this->language_id ?? self::DEFAULT_LANGUAGE));
-			$language_id = $this->language_id ?? self::DEFAULT_LANGUAGE;
+		if (!array_key_exists($language_id, $this->language_list)) {
+			return false;
 		}
 		$this->language_id = $language_id;
-		$this->languages[$language_id] = yaml_parse_file($this->filePath . $language_id . ".yml"));
-		$this->raw_messages ??= array_map(static fn(string $message) : string => TextFormat::colorize($message), $this->getRawLanguageData($language_id));
-
-		$language_version = (float) ($this->messages["LANG_VERSION"] ?? -1);
-		if ($language_version < $this->language_version) {
-			$this->plugin->getLogger()->notice(sprintf($this->getMessage('language.outdated'), $language_version, $this->language_version));
-		}
+		$this->raw_language = $this->getRawLanguageData();
 		return true;
-	}*/
+	}
 
-	public function getMessage(string $key, array $replacements = []) : ?string{
-		if (!isset($this->messages[$key])) {
-			if (!isset($this->raw_messages[$key])) {
-				$this->plugin->getLogger()->info(sprintf($this->getMessage("language.key-not-found"), $key, $this->language_id));
+	public function getMessage(string $key, array $replacements = [], ?string $language_id = null) : ?string{
+		$language = $this->languages[$language_id ?? $this->language_id];
+		if (!isset($language[$key])) {
+			$language = $this->raw_language;
+			if (!isset($language[$key])) {
 				return null;
 			}
-			return empty($replacements) ? $this->raw_messages[$key] : strtr($this->raw_messages[$key], $replacements);
 		}
-		return empty($replacements) ? $this->messages[$key] : strtr($this->messages[$key], $replacements);
+		return empty($replacements) ? $language[$key] : strtr($language[$key], $replacements);
 	}
 
 	/**
@@ -122,7 +115,7 @@ final class LanguageManager{
 	}
 
 	public function getLanguageName(string $language_id = self::DEFAULT_LANGUAGE) : string{
-		return $this->language_list[$language_id] ?? $this->raw_messages["language.unknown"] ?? "unknown";
+		return $this->language_list[$language_id] ?? "unknown";
 	}
 
 	public function getLanguageVersion() : float{

@@ -3,9 +3,7 @@
 # Configuration version, don't edit this.
 CONFIG_VERSION: 0.1
 
-language:
-  default: en_US
-  load-all: true
+language: en_US
 
 # Enter chest type (You can use the container id or its plain name: chest, enderchest, hopper, barrel, shulker)
 loots:
