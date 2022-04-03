@@ -7,10 +7,10 @@ use arie\skywar\Skywar;
 use pocketmine\utils\TextFormat;
 
 final class LanguageManager{
-	protected array $messages;
-	protected array $raw_messages;
 	protected string $language_id;
 	protected array $language_list = [];
+	protected array $raw_language;
+	protected array $languages = [];
 
 	public const DEFAULT_LANGUAGE = "en-US";
 	protected const SUPPORTED_LANGUAGES = [
@@ -19,8 +19,8 @@ final class LanguageManager{
 	];
 
 	protected const LANGUAGE_INFO = [
-		"LANG_VERSION" => 0.1,
-		"LANG_NAME" => "English"
+		"LANG_VERSION" => -1.0,
+		"LANG_NAME" => 'unknown',
 	];
 
 	private string $filePath;
@@ -38,18 +38,21 @@ final class LanguageManager{
 		}
 
 		foreach (glob($this->filePath . "*.yml") as $lang) {
-			$this->language_list[basename($lang, ".yml")] = yaml_parse_file($lang)["LANG_NAME"] ?? "Unknown";
+			$data = yaml_parse_file($lang);
+			$id = basename($lang, '.yml');
+			$language_name = $data["LANG_NAME"] ?? "unknown";
+			$this->language_list[$id] = $language_name;
+			$this->languages[$id] =  array_map(static fn(string $message) : string => TextFormat::colorize($message), array_diff_key($data, self::LANGUAGE_INFO));
 		}
-
-		//$this->language_list = array_map(static fn(string $lang) : string => yaml_parse_file($lang)["LANG_NAME"] ?? "Unknown", glob($this->filePath . "*.yml"));
-		print_r($this->language_list);
-
-		$this->remap($this->plugin->getConfig()->get("language", self::DEFAULT_LANGUAGE));
-		print_r($this->messages);
-		print_r($this->raw_messages);
+		$language_id = $this->plugin->getConfig()->get("language", self::DEFAULT_LANGUAGE);
+		if (!array_key_exists($language_id, $this->language_list)) {
+			$this->plugin->getLogger()->notice(sprintf($this->getMessage('language.default-not-exist'), $language_id, self::DEFAULT_LANGUAGE));
+			$language_id = self::DEFAULT_LANGUAGE;
+		}
+		$this->language_id = $language_id;
 	}
 
-	public function remap(string $language_id = self::DEFAULT_LANGUAGE) : bool{
+	/*public function remap(string $language_id = self::DEFAULT_LANGUAGE) : bool{
 		if (isset($this->language_id) && $language_id === $this->language_id) {
 			$this->plugin->getLogger()->info(sprintf($this->getMessage('language.already-set'), $this->getLanguageName(), $language_id));
 			return false;
@@ -59,15 +62,15 @@ final class LanguageManager{
 			$language_id = $this->language_id ?? self::DEFAULT_LANGUAGE;
 		}
 		$this->language_id = $language_id;
-		$this->messages = array_map(static fn(string $message) : string => TextFormat::colorize($message), yaml_parse_file($this->filePath . $language_id . ".yml"));
-		$this->raw_messages = array_map(static fn(string $message) : string => TextFormat::colorize($message), $this->getRawLanguageData($language_id));
+		$this->languages[$language_id] = yaml_parse_file($this->filePath . $language_id . ".yml"));
+		$this->raw_messages ??= array_map(static fn(string $message) : string => TextFormat::colorize($message), $this->getRawLanguageData($language_id));
 
 		$language_version = (float) ($this->messages["LANG_VERSION"] ?? -1);
 		if ($language_version < $this->language_version) {
 			$this->plugin->getLogger()->notice(sprintf($this->getMessage('language.outdated'), $language_version, $this->language_version));
 		}
 		return true;
-	}
+	}*/
 
 	public function getMessage(string $key, array $replacements = []) : ?string{
 		if (!isset($this->messages[$key])) {

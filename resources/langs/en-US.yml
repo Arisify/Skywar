@@ -117,6 +117,7 @@ language.set: The default language has been set to %s (%s), version %s!
 language.already-set: The language has already set to %s (%s)!
 language.key-not-found: There are no key specific to "%s" in %s, return default message!
 language.not-exist: The language which you are using (%s) is not exist, undoing the old language (%s)!
+language.default-not-exist: The default language which you are using (%s) is not exist, using default language (%s)!
 language.outdated: The language you are using is outdated (%s) -> (%s), which can cause translations to be missing or wrong!
 language.not-supported: The language you are using (%s) is not currently supported causing the message to be missing.
 language.unknown: unknown
