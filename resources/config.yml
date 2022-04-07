@@ -4,6 +4,8 @@
 CONFIG_VERSION: 0.1
 
 language: en_US
+# Each player can have their own language setting
+multi-language: false
 
 # Enter chest type (You can use the container id or its plain name: chest, enderchest, hopper, barrel, shulker)
 loots:
@@ -65,6 +67,7 @@ world:
     name: world
 
 commands:
+  tag: [sw]
   group:
     1: [solo, solos] #Hi
     2: [dual, duals]

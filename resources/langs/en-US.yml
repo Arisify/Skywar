@@ -47,9 +47,6 @@ chat.candy: "Is it halloween?"
 chat.homework: "You haven't finished your homework, Have you??"
 chat.building: "TBH, you haven't finished that building..."
 
-command.banned: "You cannot use this command while playing this!"
-command.noperm: "You don't have command to use this command!"
-
 
 game.chest.refill: ">> All chests has refill!"
 game.countdown_15: 15
@@ -87,6 +84,8 @@ scoreboard.line14: ""
 scoreboard.line15: ""
 scoreboard.title: ""
 
+# ---- Not recommended editing
+
 # FORM LANGUAGE
 form.button.back: "Back"
 
@@ -97,6 +96,7 @@ form.manager.button-arenalist: "Arena List"
 form.manager.button-maplist: "Map List"
 form.manager.button-language: "Language"
 
+# Arena Settings
 form.settings.title: "SKYWAR"
 form.settings.text: "&6Skywar Settings"
 form.settings.input1: "Countdown Time: "
@@ -106,21 +106,33 @@ form.settings.input4: "Restart Time: "
 form.settings.input5: "Force Start Time: "
 form.settings.input6: "Arena limit: "
 
+# Maps managers
 form.maps.title: "SKYWAR"
 form.maps.text: "Maps List"
 
+# Language setting
 form.language.title: "SKYWAR"
 form.language.text: "&6Current language: &a{LANGUAGE_NAME} ({LANGUAGE_ID})"
 form.language.dropdown: "Chose a language: "
 
-language.set: The default language has been set to %s (%s), version %s!
-language.already-set: The language has already set to %s (%s)!
-language.key-not-found: There are no key specific to "%s" in %s, return default message!
-language.not-exist: The language which you are using (%s) is not exist, undoing the old language (%s)!
-language.default-not-exist: The default language which you are using (%s) is not exist, using default language (%s)!
-language.outdated: The language you are using is outdated (%s) -> (%s), which can cause translations to be missing or wrong!
-language.not-supported: The language you are using (%s) is not currently supported causing the message to be missing.
+# Command messages
+command.banned: "You cannot use this command while playing this!"
+command.usage.lang: "Usage: /sw lang <lang-id>"
+command.usage.addmap: "Usage: /sw addmap <map_id>"
+command.usage.join: "Usage: /sw join <mode>"
+command.noperm: "You don't have permissions to use this command!"
+
+# Language logger
+language.already-set: The language has already set to {LANG_NAME} ({LANG_ID})!
+language.default-not-exist: The default language which you are using ({LANG_ID}) is not exist, using default language ({DEFAULT_LANG_NAME})!
+language.key-not-found: There are no key specific to "{MESSAGE_KEY}" in the {LANG_NAME} ({LANG_ID}), return default message!
+language.not-exist: The language you are using ({LANG_ID}) is not exist, undoing the changes!
+language.not-supported: The language you are using ({LANG_NAME}) is not currently supported, causing the message to be missing.
+language.outdated: The language you are using ({LANG_NAME}) ({LANG_VER} -> {PLUGIN_LANG_VER}) is outdated causing the messages to be missing or wrong!
+langugae.corrupted-raw: The raw data ({RAW_LANG_NAME} - {RAW_LANG_ID}) has been corrupted, try to reload the server and reporting this issues to the dev! (&b {WEBSITE}).
+language.set: The default language has been set to {LANG_NAME} ({LANG_ID}), version {LANG_VER}!
 language.unknown: unknown
 
-error.dir-not-found: Directory cannot found be found at "%s".
+# Errors
+error.dir-not-found: Directory cannot found be found at "{DIR}".
 ...

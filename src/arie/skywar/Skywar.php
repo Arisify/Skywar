@@ -45,7 +45,7 @@ final class Skywar extends PluginBase implements Listener{
 	}
 
 	public function onEnable() : void{
-		$this->getLogger()->info(sprintf($this->language->getMessage('language.set'), $this->language->getLanguageName($this->language->getLanguageId()), $this->language->getLanguageId(), $this->language->getLanguageVersion()));
+		//$this->getLogger()->info(sprintf($this->language->getMessage('language.set'), $this->language->getLanguageName($this->language->getLanguageId()), $this->language->getLanguageId(), $this->language->getLanguageVersion()));
 		$this->getServer()->getCommandMap()->register("skywars", new SkywarCommands($this));
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
@@ -126,8 +126,20 @@ final class Skywar extends PluginBase implements Listener{
 			],
 			function(Player $submitter, CustomFormResponse $response) use ($languageKeys) : void{
 				$new_lang_id = $languageKeys[$response->getInt("language")];
-				if ($this->language->getLanguageId() !== $new_lang_id) {
-					$this->language->setLanguage($new_lang_id);
+				$result = $this->language->setLanguage($new_lang_id);
+				if ($result) {
+					$submitter->sendMessage($this->language->getMessage(
+						"language.set",
+						[
+							"{LANG_NAME}" => $this->language->getLanguageName($new_lang_id),
+							"LANG_ID" => $new_lang_id,
+							"{LANG_VER}" => $this->language->getLanguageVersion($new_lang_id)
+						]
+					));
+				} else {
+					$submitter->sendMessage($this->language->getMessage(
+						"language.al"
+					));
 				}
 			}
 		);
@@ -136,7 +148,6 @@ final class Skywar extends PluginBase implements Listener{
 	public function onCommandPreprocess(PlayerCommandPreprocessEvent $event) : void{
 		$player = $event->getPlayer();
 		$cmd = $event->getMessage();
-		print_r($cmd);
 		if ($cmd === "/kill") {
 			$player->sendMessage("You cannot use this command while in game!");
 			$event->cancel();
@@ -154,7 +165,7 @@ final class Skywar extends PluginBase implements Listener{
 		$this->getConfig()->setNested("settings.time.force", $this->arena_manager->getDefaultForceTime());
 		$this->getConfig()->setNested("settings-arena_limit", $this->arena_manager->getArenaLimit());
 
-		$this->getConfig()->setNested("language.default", $this->language->getLanguageId());
+		$this->getConfig()->set("language", $this->language->getLanguageId());
 
 		$this->saveConfig();
 		$this->yamlcomments->emitComments();

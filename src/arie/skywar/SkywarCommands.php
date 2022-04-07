@@ -72,10 +72,10 @@ class SkywarCommands extends Command{
 						$sender->sendForm($this->plugin->getLanguageUI());
 						break;
 					}
-					$sender->sendMessage("usuage: /sw lang <lang-id/list>");
+					$sender->sendMessage($this->plugin->getLanguage()->getMessage("command.help.usage"));
 					break;
 				}
-				$this->plugin->getLanguage()->remap($args[1]);
+				$this->plugin->getLanguage()->setLanguage($args[1]);
 				break;
 			default:
 				$sender->sendMessage($this->getUsage());
