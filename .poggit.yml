@@ -6,8 +6,10 @@ projects:
   Skywar:
     path: ""
     icon: "/assets/logo.png"
+    excludeDirs:
+      - tests
     libs:
-      - src: Arisify/scoreboard/scoreboard
+      - src: Arisify/libscoreboard/scoreboard
         version: ^1.0.0
       - src: Arisify/yamlcomments/yamlcomments
         version: ^1.0.0
