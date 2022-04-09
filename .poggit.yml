@@ -9,6 +9,8 @@ projects:
     libs:
       - src: Arisify/scoreboard/scoreboard
         version: ^1.0.0
+      - src: Arisify/yamlcomments/yamlcomments
+        version: ^1.0.0
       - src: dktapps-pm-pl/pmforms/pmforms
         version: ^2.0.0
 ...
