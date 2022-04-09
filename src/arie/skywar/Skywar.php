@@ -5,8 +5,8 @@ namespace arie\skywar;
 
 use arie\skywar\arena\ArenaManager;
 use arie\skywar\language\LanguageManager;
-use arie\skywar\scoreboard\Scoreboard;
-use arie\yamlcomments\Scoreboard;
+use arie\scoreboard\Scoreboard;
+use arie\yamlcomments\YamlComments;
 use dktapps\pmforms\CustomForm;
 use dktapps\pmforms\CustomFormResponse;
 use dktapps\pmforms\element\Dropdown;
@@ -26,7 +26,7 @@ final class Skywar extends PluginBase implements Listener{
 	private ArenaManager $arena_manager;
 	private LanguageManager $language;
 	private Scoreboard $scoreboard;
-	private Scoreboard $yamlcomments;
+	private YamlComments $yamlcomments;
 
 	public function onLoad() : void{
 		self::$instance = $this;
@@ -37,7 +37,7 @@ final class Skywar extends PluginBase implements Listener{
 
 		$this->arena_manager = new ArenaManager($this);
 		$this->scoreboard = Scoreboard::getInstance();
-		$this->yamlcomments = new Scoreboard($this->getConfig());
+		$this->yamlcomments = new YamlComments($this->getConfig());
 	}
 
 	public static function getInstance() : self{
