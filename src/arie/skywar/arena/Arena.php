@@ -103,7 +103,7 @@ class Arena{
 	}
 
 
-	public function join(Player $player) : bool{
+	public function join(Player $player, int $team = 0) : bool{
 		if (!$this->isEnabled() && $this->player_amount > $this->slots->getSize()) {
 			return false;
 		}

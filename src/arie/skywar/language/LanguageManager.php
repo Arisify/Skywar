@@ -78,8 +78,6 @@ final class LanguageManager{
 				"{LANG_VER}" => $this->language_versions[$language_id],
 			]
 		));
-		//print_r($this->languages);
-		print_r($this->language_names);
 	}
 
 	public function setLanguage(string $language_id = self::DEFAULT_LANGUAGE) : bool{

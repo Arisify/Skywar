@@ -122,5 +122,17 @@ language.outdated: Ngôn ngữ bạn đang sử dụng đã lỗi thời (%s) ->
 language.not-supported: Ngôn ngữ bạn đang sử dụng (%s) hiện tại không được hỗ trợ, các từ khóa còn thiếu sẽ được thay bằng ngôn ngữ mặc định.
 language.unknown: không rõ
 
+# Language logger
+language.already-set: The language has already set to {LANG_NAME} ({LANG_ID})!
+language.default-not-exist: The default language which you are using ({LANG_ID}) is not exist, using default language ({DEFAULT_LANG_NAME})!
+language.key-not-found: There are no key specific to "{MESSAGE_KEY}" in the {LANG_NAME} ({LANG_ID}), return default message!
+language.not-exist: The language you are using ({LANG_ID}) is not exist, undoing the changes!
+language.not-supported: The language you are using ({LANG_NAME}) is not currently supported, causing the message to be missing.
+language.outdated: The language you are using ({LANG_NAME}) ({LANG_VER} -> {PLUGIN_LANG_VER}) is outdated causing the messages to be missing or wrong!
+langugae.corrupted-raw: The raw data ({RAW_LANG_NAME} - {RAW_LANG_ID}) has been corrupted, try to reload the server and reporting this issues to the dev! (&b {WEBSITE}).
+language.set: The default language has been set to {LANG_NAME} ({LANG_ID}), version {LANG_VER}!
+language.unknown: unknown
+
+# Errors
 error.dir-not-found: Thư mục không tồn tại tại "%s".
 ...
