@@ -9,7 +9,7 @@ projects:
     excludeDirs:
       - tests
     libs:
-      - src: Arisify/libscoreboard/scoreboard
+      - src: Arisify/libscoreboard/libscoreboard
         version: ^1.0.0
       - src: Arisify/yamlcomments/yamlcomments
         version: ^1.0.0
