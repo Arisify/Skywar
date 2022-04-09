@@ -3,6 +3,11 @@ declare(strict_types=1);
 
 namespace arie\skywar;
 
+use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerCommandPreprocessEvent;
+use pocketmine\player\Player;
+use pocketmine\plugin\PluginBase;
+
 use arie\skywar\arena\ArenaManager;
 use arie\skywar\language\LanguageManager;
 use arie\scoreboard\Scoreboard;
@@ -15,10 +20,6 @@ use dktapps\pmforms\element\Label;
 use dktapps\pmforms\FormIcon;
 use dktapps\pmforms\MenuForm;
 use dktapps\pmforms\MenuOption;
-use pocketmine\event\Listener;
-use pocketmine\event\player\PlayerCommandPreprocessEvent;
-use pocketmine\player\Player;
-use pocketmine\plugin\PluginBase;
 
 final class Skywar extends PluginBase implements Listener{
 	private static Skywar $instance;
@@ -136,10 +137,6 @@ final class Skywar extends PluginBase implements Listener{
 							"{LANG_VER}" => $this->language->getLanguageVersion($new_lang_id)
 						]
 					));
-				} else {
-					$submitter->sendMessage($this->language->getMessage(
-						"language.al"
-					));
 				}
 			}
 		);
@@ -152,6 +149,22 @@ final class Skywar extends PluginBase implements Listener{
 			$player->sendMessage("You cannot use this command while in game!");
 			$event->cancel();
 		}
+
+		if ($cmd === "/pl") {
+			$player->sendMessage("You cannot use this command while in game!");
+			$event->cancel();
+		}
+	}
+
+	/**
+	 * @return ArenaManager|null
+	 */
+	public function getArenaManager() : ?ArenaManager{
+		return $this->arena_manager;
+	}
+
+	public function getLanguage() : ?LanguageManager{
+		return $this->language;
 	}
 
 	/**
@@ -169,16 +182,5 @@ final class Skywar extends PluginBase implements Listener{
 
 		$this->saveConfig();
 		$this->yamlcomments->emitComments();
-	}
-
-	/**
-	 * @return ArenaManager|null
-	 */
-	public function getArenaManager() : ?ArenaManager{
-		return $this->arena_manager;
-	}
-
-	public function getLanguage() : ?LanguageManager{
-		return $this->language;
 	}
 }

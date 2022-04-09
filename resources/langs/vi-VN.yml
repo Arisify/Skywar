@@ -1,6 +1,6 @@
 ---
-LANG_VERSION: 0.1
-LANG_NAME: Tiếng Việt
+lang.version: 0.1
+lang.name: Tiếng Việt
 
 mode.group.1: "Tay đôi"
 mode.group.2: "Cặp đôi"
@@ -115,23 +115,16 @@ form.language.dropdown: "Chọn ngôn ngữ: {LANGUAGE_ID}"
 
 command.help.usage: "Sử dụng: /{CMD} lang <lang-id>"
 
-language.info: Ngôn ngữ mặc định đã được cài đặt thành %s (%s), phiên bản %s!
-language.key-not-found: Không tìm thấy chì khóa "%s" trong %s, từ khóa mặc định sẽ được trả lại!
-language.not-exist: Ngôn ngữ bạn muốn (%s) không tồn tại, trả lại ngôn ngữ cũ (%s)!
-language.outdated: Ngôn ngữ bạn đang sử dụng đã lỗi thời (%s) -> (%s), xin hãy cập nhật để có bản dịch đầy đủ!
-language.not-supported: Ngôn ngữ bạn đang sử dụng (%s) hiện tại không được hỗ trợ, các từ khóa còn thiếu sẽ được thay bằng ngôn ngữ mặc định.
-language.unknown: không rõ
-
 # Language logger
-language.already-set: The language has already set to {LANG_NAME} ({LANG_ID})!
-language.default-not-exist: The default language which you are using ({LANG_ID}) is not exist, using default language ({DEFAULT_LANG_NAME})!
-language.key-not-found: There are no key specific to "{MESSAGE_KEY}" in the {LANG_NAME} ({LANG_ID}), return default message!
-language.not-exist: The language you are using ({LANG_ID}) is not exist, undoing the changes!
-language.not-supported: The language you are using ({LANG_NAME}) is not currently supported, causing the message to be missing.
-language.outdated: The language you are using ({LANG_NAME}) ({LANG_VER} -> {PLUGIN_LANG_VER}) is outdated causing the messages to be missing or wrong!
-langugae.corrupted-raw: The raw data ({RAW_LANG_NAME} - {RAW_LANG_ID}) has been corrupted, try to reload the server and reporting this issues to the dev! (&b {WEBSITE}).
-language.set: The default language has been set to {LANG_NAME} ({LANG_ID}), version {LANG_VER}!
-language.unknown: unknown
+language.already-set: Ngôn ngữ mặc định đã được sửa thành {LANG_NAME} ({LANG_ID})!
+language.default-not-exist: Ngôn ngữ mặc định ({LANG_ID}) không tồn tại, sử dụng dữ liệu nguồn ({DEFAULT_LANG_NAME})!
+language.key-not-found: Không có bất kì tên nào giống với "{MESSAGE_KEY}" trong {LANG_NAME} ({LANG_ID}), đang thử trả lại ngôn ngữ mặc định!
+language.not-exist: Ngôn ngữ bạn nói trên ({LANG_ID}) không tồn tại, trả lại các thay đổi!
+language.not-supported: Ngôn ngữ bạn nói trên ({LANG_NAME}) hiện không được hỗ trợ, bạn có thể cung cấp bản dịch tại {TRANSLATOR}.
+language.outdated: Ngôn ngữ bạn sài ({LANG_NAME}) ({LANG_VER} -> {PLUGIN_LANG_VER}) đã hết hạn, việc sử dụng có thể dẫn đến bản dịch bị sai hoặc thiếu xót!
+langugae.corrupted-raw: Dữ liệu nguồn của ({RAW_LANG_NAME} - {RAW_LANG_ID}) đã bị lỗi, vui lòng tải lại máy chủ hoặc thông báo tới trang web! (&b {WEBSITE}).
+language.set: Ngôn ngữ mặc định đã được đặt thành {LANG_NAME} ({LANG_ID}), phiên bản {LANG_VER}!
+language.unknown: không rõ
 
 # Errors
 error.dir-not-found: Thư mục không tồn tại tại "%s".

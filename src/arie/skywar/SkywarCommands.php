@@ -3,10 +3,11 @@ declare(strict_types=1);
 
 namespace arie\skywar;
 
-use arie\skywar\arena\Arena;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
+
+use arie\skywar\arena\Arena;
 
 class SkywarCommands extends Command{
 

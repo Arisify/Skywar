@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace arie\skywar\math;
+
 class Vector3 extends \pocketmine\math\Vector3{
 	public function __toString(){
 		return "$this->x,$this->y,$this->z";

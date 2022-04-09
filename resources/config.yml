@@ -3,7 +3,7 @@
 # Configuration version, don't edit this.
 CONFIG_VERSION: 0.1
 
-language: en_US
+language: en-US
 # Each player can have their own language setting
 multi-language: false
 

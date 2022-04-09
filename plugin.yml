@@ -2,8 +2,9 @@ name: Skywar
 author: arie
 main: arie\skywar\Skywar
 website: https://github.com/Arisify/Skywar
-version: 0.1alpha2
+version: 0.1alpha3
 api: 4.0.0
+
 versions:
   config: 0.1
   language: 0.1
