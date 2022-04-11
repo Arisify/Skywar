@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace arie\skywar\language;
 
 class DefaultLanguageTag{
-	public const LANG_NAME = "lang.name";
-	public const LANG_VER = "lang.ver";
-	public const DEFAULT_LANG_VER = "default_lang.id";
+	public const LANG_NAME = "{LANG_NAME}";
+	public const LANG_VER = "{LANG_VER}";
+	public const DEFAULT_LANG_VER = "{DEFAULT_LANG_VER}";
 
 	public const PLAYER = "{PLAYER}";
 	public const KILLER = "{KILLER}";
