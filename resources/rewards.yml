@@ -1,0 +1,15 @@
+---
+kill:
+  money: 20
+  xp: 20
+win:
+  money: 500
+  xp: 100
+lost:
+  money: 0
+  xp: 0
+achievement: #XP only
+  first-kill: 100
+  ten-kill: 200
+  5-kill-in-a-row: 500
+...

@@ -49,9 +49,28 @@ final class Skywar extends PluginBase implements Listener{
 	}
 
 	public function onEnable() : void{
-		//$this->getLogger()->info(sprintf($this->language->getMessage('language.set'), $this->language->getLanguageName($this->language->getLanguageId()), $this->language->getLanguageId(), $this->language->getLanguageVersion()));
 		$this->getServer()->getCommandMap()->register("skywars", new SkywarCommands($this));
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
+		sleep(2);
+		$this->getMoney();
+	}
+
+	public function getMoney() : int{
+		$b = 0;
+		$p = BedrockEconomyAPI::beta()->get("StockyNoob");
+		$p->onCompletion(
+			static function (int $balance) use ($b) : void{
+				echo ("Balance: " . $balance . PHP_EOL);
+				$b = $balance;
+			},
+			static function () : void{
+				//None
+			}
+		);
+		var_dump($p);
+		echo $b;
+		//var_dump(BedrockEconomyAPI::beta()->get("StockyNoob"));
+		return $b;
 	}
 
 	public function getSkywarManagerUI() : ?MenuForm{

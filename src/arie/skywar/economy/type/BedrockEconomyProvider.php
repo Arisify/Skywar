@@ -4,35 +4,35 @@ declare(strict_types=1);
 use arie\skywar\economy\EconomyProvider;
 
 use cooldogedev\BedrockEconomy\api\BedrockEconomyAPI;
-use cooldogedev\BedrockEconomy\api\version\LegacyBEAPI;
-use cooldogedev\libSQL\context\ClosureContext;
-use pocketmine\player\Player;
+use cooldogedev\BedrockEconomy\api\version\BetaBEAPI;
+use cooldogedev\BedrockEconomy\BedrockEconomy;
+use pocketmine\promise\Promise;
 
 class BedrockEconomyProvider implements EconomyProvider{
-	private LegacyBEAPI $economy;
+	private BetaBEAPI $economy;
 
 	public function __construct() {
-		$this->economy = BedrockEconomyAPI::legacy();
+		$this->economy = BedrockEconomyAPI::beta();
 	}
 
-	public function addMoney(Player $player, int|float $amount) : void{
-		$this->economy->addToPlayerBalance($player->getName(), (int) floor($amount));
+	public function addMoney(string $user, int|float $amount) : void{
+		$this->economy->add;
 	}
 
-	public function removeMoney(Player $player, int|float $amount) : void{
-		$this->economy->subtractFromPlayerBalance($player->getName(), (int) floor($amount));
+	public function removeMoney(string $user, int|float $amount, Closure $onSuccess, Closure $onFailure) : void{
+		$this->economy->getAccountManager()->deduct($user, $amount)->onCompletion($onSuccess, $onFailure);
 	}
 
-	public function getMoney(Player $player) : int{
-		$b = 0;
-		$this->economy->getPlayerBalance($player->getName(), ClosureContext::create(
-			static fn(int $balance) : int => $b = $balance
-		));
-		return $b;
+	public function getMoney(string $user, Closure $onSuccess, Closure $onFailure) : void{
+		$this->economy->get($user)->onCompletion($onSuccess, $onFailure);
 	}
 
 	public function getCurrencySymbol() : string{
-		// TODO: Implement getCurrencySymbol() method.
+		return BedrockEconomy::getInstance()->getCurrencyManager()->getSymbol();
+	}
+
+	public function getCurrencyName() : string{
+		return BedrockEconomy::getInstance()->getCurrencyManager()->getSymbol();
 	}
 
 	public function getName() : string{

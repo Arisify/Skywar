@@ -4,8 +4,8 @@
 CONFIG_VERSION: 0.1
 
 language: en-US
-# Each player can have their own language setting
-multi-language: false
+multi-player: false # Each player can have their own language setting
+
 
 # Enter chest type (You can use the container id or its plain name: chest, enderchest, hopper, barrel, shulker)
 loots:
@@ -35,19 +35,26 @@ database:
   sqlite:
     file: players.db
 
+rewards:
+  kill:
+    money: 20
+    xp: 20
+  win:
+    money: 500
+  lost: 5
+  achievement: 50
 settings:
   # The map will be archived and saved as a zip file
   archive_map: true
   # The amount of maximum arena, -1 for unlimited (not supported)
   arena_limit: -1
+  achievement: false # An achievement system
   # Broadcast player's winning to all players on the server
   broadcast_winner: true
   # Allow player to craft stuff while in-game
   crafting: true
   # In-game kill counter
   kill_counter: true
-  # BedrockEconomy only
-  reward: 200
   # Save player' data, like: old inventory, old health, hunger, etc
   # This might slow down your performance
   save_player_data: true
