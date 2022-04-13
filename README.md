@@ -10,6 +10,10 @@
 - Custom gameplay ✔
 - UI settings 
 
+## Todo
+- Arena Data
+- Database
+- etc :C
 ## 💬 Commands
 
 | Command                 | Description  | Permission             | Default     |
