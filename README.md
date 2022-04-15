@@ -1,8 +1,6 @@
 <h1>Skywar<img src="assets/icon.png" height="64" width="64" align="left" alt=""></h1><br>
 
 <b>A skywar minegames plugin for PocketMine API 4.0. In development!</b><br>
-[![License](https://img.shields.io/github/license/Arisify/Skywar)](https://github.com/Arisify/Skywar)
-[![Star](https://img.shields.io/github/stars/Arisify/Skywar)](https://github.com/Arisify/Skywar/stargazers)
 
 ## ✨ Features
 - Custom language ✔
