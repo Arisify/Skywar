@@ -17,6 +17,12 @@ loots:
   # This currently not that customizable, you will use the HIVE ores mining logic, redstone gave absorption
   ores_mining: true
 
+maps:
+  # The map will be archived and saved as a zip file
+  archive_map: true
+  chunks_saver: false
+  allow_height: 10
+
 database:
   # The database provider, mysql or sqlite.
   provider: sqlite
@@ -44,8 +50,6 @@ rewards:
   lost: 5
   achievement: 50
 settings:
-  # The map will be archived and saved as a zip file
-  archive_map: true
   # The amount of maximum arena, -1 for unlimited (not supported)
   arena_limit: -1
   achievement: false # An achievement system
@@ -76,7 +80,7 @@ world:
 commands:
   tag: [sw]
   group:
-    1: [solo, solos] #Hi
+    1: [solo, solos]
     2: [dual, duals]
     3: [trio, trios]
     #Beta
