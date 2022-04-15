@@ -1,13 +1,26 @@
 <?php
+/*
+ * Copyright (c) 2022 Arisify
+ *
+ * This program is freeware, so you are free to redistribute and/or modify
+ * it under the conditions of the MIT License.
+ *
+ * @author Arisify
+ * @link   https://github.com/Arisify
+ * @license https://opensource.org/licenses/MIT MIT License
+ *
+ * \    /\
+ *  )  ( ') ᵐᵉᵒʷˢ
+ * (  /  )
+ *  \(__)|
+ *
+*/
 declare(strict_types=1);
 
 namespace arie\skywar;
 
-use cooldogedev\BedrockEconomy\api\BedrockEconomyAPI;
-use cooldogedev\libSQL\context\ClosureContext;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerCommandPreprocessEvent;
-use pocketmine\item\Bed;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 
@@ -15,6 +28,7 @@ use arie\skywar\arena\ArenaManager;
 use arie\skywar\language\LanguageManager;
 use arie\scoreboard\Scoreboard;
 use arie\yamlcomments\YamlComments;
+
 use dktapps\pmforms\CustomForm;
 use dktapps\pmforms\CustomFormResponse;
 use dktapps\pmforms\element\Dropdown;
@@ -23,6 +37,8 @@ use dktapps\pmforms\element\Label;
 use dktapps\pmforms\FormIcon;
 use dktapps\pmforms\MenuForm;
 use dktapps\pmforms\MenuOption;
+
+use cooldogedev\BedrockEconomy\api\BedrockEconomyAPI;
 
 final class Skywar extends PluginBase implements Listener{
 	private static Skywar $instance;
