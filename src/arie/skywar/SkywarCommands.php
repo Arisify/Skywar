@@ -5,17 +5,22 @@
  * This program is freeware, so you are free to redistribute and/or modify
  * it under the conditions of the MIT License.
  *
- * @author Arisify
- * @link   https://github.com/Arisify
- * @license https://opensource.org/licenses/MIT MIT License
- *
- * \    /\
- *  )  ( ') ᵐᵉᵒʷˢ
- * (  /  )
- *  \(__)|
- *
+ *  /\___/\
+ *  )     (     @author Arisify
+ * =\     /=
+ *   )   (      @link   https://github.com/Arisify
+ *  /     \     @license https://opensource.org/licenses/MIT MIT License
+ *  )     (   /\
+ * /       \ ( ') ᵐᵉᵒʷˢ
+ * \       / /  )
+ *  \__ __/_(__)|
+ *     ))
+ *    //
+ *   ((
+ *    \)
 */
 
+declare(strict_types=1);
 namespace arie\skywar;
 
 use pocketmine\command\Command;

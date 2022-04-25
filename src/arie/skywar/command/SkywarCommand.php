@@ -5,15 +5,18 @@
  * This program is freeware, so you are free to redistribute and/or modify
  * it under the conditions of the MIT License.
  *
- * @author Arisify
- * @link   https://github.com/Arisify
- * @license https://opensource.org/licenses/MIT MIT License
- *
- * \    /\
- *  )  ( ') ᵐᵉᵒʷˢ
- * (  /  )
- *  \(__)|
- *
+ *  /\___/\
+ *  )     (     @author Arisify
+ * =\     /=
+ *   )   (      @link   https://github.com/Arisify
+ *  /     \     @license https://opensource.org/licenses/MIT MIT License
+ *  )     (   /\
+ * /       \ ( ') ⁿʸᵃⁿ
+ * \       / /  )
+ *  \__ __/ (__)|
+ *     ))  (
+ *    ((
+ *     \)
 */
 declare(strict_types=1);
 
@@ -28,12 +31,11 @@ use skymin\CommandLib\EnumType;
 class SkywarCommand extends BaseCommand{
 
 	public function __construct() {
-		parent::__construct('test');
-		$this->addParameter(EnumFactory::create('pos', Enumtype::TARGET(), null, true));
-		$this->addParameter(EnumFactory::create('test', 'test', ['t', 'e', 's', 't']));
+		parent::__construct('skywar');
+		$this->addParameter("", 0);
 	}
 
-	public function execute(CommandSender $sender, string $commandLabel, array $args) : void{
-		return;
+	public function execute(CommandSender $sender, string $commandLabel, array $args) : bool{
+		return true;
 	}
 }

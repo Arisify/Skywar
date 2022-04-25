@@ -137,7 +137,7 @@ language.unknown: unknown
 config.outdated: The config has been outdated, please update your config version to the latest config ({CONFIG_VER} -> {PLUGIN_CONFIG_VER})for stability!
 config.auto-update: Config Auto Update (CAU) is on, the config will be updated after the server close!
 config.yamlcomments: Yamlcomments is on, this will save your config comments for settings instructment!
-config.corrupted: The config has been corrupted, the plugin will be disabled!
+config.corrupted: The config has been corrupted, the config will be resetted!
 
 # Errors
 error.dir-not-found: Thư mục không tồn tại tại "%s".

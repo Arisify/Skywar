@@ -443,6 +443,20 @@ class Arena{
 		}
 	}
 
+	public function onCommandPreprocess(PlayerCommandPreprocessEvent $event) : void{
+		$player = $event->getPlayer();
+		$cmd = $event->getMessage();
+		if ($cmd === "/kill") {
+			$player->sendMessage("You cannot use this command while in game!");
+			$event->cancel();
+		}
+
+		if ($cmd === "/pl") {
+			$player->sendMessage("You cannot use this command while in game!");
+			$event->cancel();
+		}
+	}
+
 	public function onWorldUnload(WorldUnloadEvent $event) : void{
 		if ($event->getWorld()->getFolderName() === $this->world->getFolderName()) {
 			$this->reschedule();
@@ -450,9 +464,8 @@ class Arena{
 	}
 
 	public function getMostRatedMap() : string{
-		$map = array_key_first(array_count_values($this->maps));
 		// $this->slots = \SplFixedArray::fromArray($this->plugin->getArenaManager()->getMaps()[]); Todo: fix the logic
-		return $map; //Performance drops?
+		return array_key_first(array_count_values($this->maps)); //Performance drops?
 	}
 
 	private function getMapVotingForm(Player $player) : ?MenuForm{

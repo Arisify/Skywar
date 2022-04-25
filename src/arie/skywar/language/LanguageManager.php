@@ -5,15 +5,19 @@
  * This program is freeware, so you are free to redistribute and/or modify
  * it under the conditions of the MIT License.
  *
- * @author Arisify
- * @link   https://github.com/Arisify
- * @license https://opensource.org/licenses/MIT MIT License
- *
- * \    /\
- *  )  ( ') ᵐᵉᵒʷˢ
- * (  /  )
- *  \(__)|
- *
+ *  /\___/\
+ *  )     (     @author Arisify
+ * =\     /=
+ *   )   (      @link   https://github.com/Arisify
+ *  /     \     @license https://opensource.org/licenses/MIT MIT License
+ *  )     (   /\
+ * /       \ ( ') ᵐᵉᵒʷˢ
+ * \       / /  )
+ *  \__ __/_(__)|
+ *     ))
+ *    //
+ *   ((
+ *    \)
 */
 declare(strict_types=1);
 
@@ -35,10 +39,6 @@ final class LanguageManager{
 		"en-US",
 		"vi-VN"
 	];
-	protected const LANGUAGE_INFO = [
-		"LANG_VERSION" => -1.0,
-		"LANG_NAME" => 'unknown',
-	];
 
 	protected string $language_id;
 	protected array $language_names = [];
@@ -53,7 +53,7 @@ final class LanguageManager{
 		$language_id = $this->plugin->getConfig()->get("language", self::DEFAULT_LANGUAGE);
 
 		if (!@mkdir($concurrentDirectory = $this->filePath) && !is_dir($concurrentDirectory)) {
-			throw new \RuntimeException(sprintf($this->getMessage('error.dir-not-found'), $concurrentDirectory));
+			throw new \RuntimeException(sprintf($this->getMessage(DefaultLanguageTag::ERROR_DIR_NOT_FOUND), $concurrentDirectory));
 		}
 
 		foreach (self::SUPPORTED_LANGUAGES as $lang) {
@@ -68,31 +68,31 @@ final class LanguageManager{
 			$this->languages[$id] = array_map(static fn(string $message) : string => TextFormat::colorize($message), $data);
 		}
 		if (!array_key_exists($language_id, $this->language_names)) {
-			$this->logger->notice($this->getMessage("language.default-not-exist",
+			$this->logger->notice($this->getMessage(DefaultLanguageTag::LANGUAGE_DEFAULT_NOT_EXIST,
 				[
-					"{LANG_ID}" => $language_id,
-					"{DEFAULT_LANG_NAME}" => $this->getLanguageName()
+					DefaultTranslatorTag::LANG_ID => $language_id,
+					DefaultTranslatorTag::DEFAULT_LANG_NAME => $this->getLanguageName()
 				],
 				self::DEFAULT_LANGUAGE
 			));
 			$language_id = self::DEFAULT_LANGUAGE;
 		}
 		if ($this->plugin_language_version > $this->language_versions[$language_id]) {
-			$this->logger->notice($this->getMessage("language.outdated",
+			$this->logger->notice($this->getMessage(DefaultLanguageTag::LANGUAGE_OUTDATED,
 				[
-					"{LANG_VER}" => $this->language_versions[$language_id],
-					"{LANG_NAME}" => $this->getLanguageName($language_id),
-					"{PLUGIN_LANG_VER}" => $this->plugin_language_version
+					DefaultTranslatorTag::LANG_ID => $this->language_versions[$language_id],
+					DefaultTranslatorTag::LANG_NAME => $this->getLanguageName($language_id),
+					DefaultTranslatorTag::PLUGIN_LANG_VER => $this->plugin_language_version
 				],
 				$language_id
 			));
 		}
 		$this->language_id = $language_id;
-		$this->logger->info($this->getMessage("language.set",
+		$this->logger->info($this->getMessage(DefaultLanguageTag::LANGUAGE_SET,
 			[
-				"{LANG_NAME}" => $this->getLanguageName(),
-				"{LANG_ID}" => $this->language_id,
-				"{LANG_VER}" => $this->language_versions[$language_id],
+				DefaultTranslatorTag::LANG_NAME => $this->getLanguageName(),
+				DefaultTranslatorTag::LANG_ID => $this->language_id,
+				DefaultTranslatorTag::LANG_VER => $this->language_versions[$language_id],
 			]
 		));
 	}
@@ -101,11 +101,11 @@ final class LanguageManager{
 		$language_id ??= $this->language_id;
 		$language = $this->languages[$language_id];
 		if (!isset($language[$key])) {
-			$this->logger->info($this->getMessage("language.key-not-found",
+			$this->logger->info($this->getMessage(DefaultLanguageTag::LANGUAGE_KEY_NOT_FOUND,
 				[
 					"{MESSAGE_KEY}" => $key,
-					"{LANG_NAME}" => $this->getLanguageName($language_id),
-					"{LANG_ID}" => $language_id
+					DefaultTranslatorTag::LANG_NAME => $this->getLanguageName($language_id),
+					DefaultTranslatorTag::LANG_ID => $language_id
 				]
 			));
 			$language = $this->raw_language;
@@ -122,19 +122,19 @@ final class LanguageManager{
 
 	public function setLanguage(string $language_id = self::DEFAULT_LANGUAGE) : bool{
 		if ($this->language_id === $language_id) {
-			$this->logger->info($this->getMessage("language.already-set",
+			$this->logger->info($this->getMessage(DefaultLanguageTag::LANGUAGE_ALREADY_SET,
 				[
-					"{LANG_NAME}" => $this->getLanguageName($language_id),
-					"{LANG_ID}" => $language_id,
-					"{LANG_VER}" => $this->language_versions[$language_id],
+					DefaultTranslatorTag::LANG_NAME => $this->getLanguageName($language_id),
+					DefaultTranslatorTag::LANG_ID => $language_id,
+					DefaultTranslatorTag::LANG_VER => $this->language_versions[$language_id],
 				]
 			));
 			return false;
 		}
 		if (!array_key_exists($language_id, $this->language_names)) {
-			$this->logger->info($this->getMessage("language.not-supported",
+			$this->logger->info($this->getMessage(DefaultLanguageTag::LANGUAGE_NOT_SUPPORTED,
 				[
-					"{LANG_NAME}" => $this->getLanguageName($language_id),
+					DefaultTranslatorTag::LANG_NAME => $this->getLanguageName($language_id),
 				]
 			));
 			return false;

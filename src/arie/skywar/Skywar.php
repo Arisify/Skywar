@@ -24,9 +24,9 @@ use pocketmine\event\player\PlayerCommandPreprocessEvent;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 
-use arie\skywar\arena\ArenaManager;
-use arie\skywar\language\LanguageManager;
 use arie\scoreboard\Scoreboard;
+use arie\skywar\language\LanguageManager;
+use arie\skywar\match\MatchManager;
 use arie\yamlcomments\YamlComments;
 
 use dktapps\pmforms\CustomForm;
@@ -43,7 +43,7 @@ use cooldogedev\BedrockEconomy\api\BedrockEconomyAPI;
 final class Skywar extends PluginBase implements Listener{
 	private static Skywar $instance;
 
-	private ArenaManager $arena_manager;
+	private MatchManager $match_manager;
 	private LanguageManager $language;
 	private Scoreboard $scoreboard;
 	private YamlComments $yamlcomments;
@@ -55,7 +55,7 @@ final class Skywar extends PluginBase implements Listener{
 		}
 		$this->language = new LanguageManager($this);
 
-		$this->arena_manager = new ArenaManager($this);
+		$this->match_manager = new MatchManager($this);
 		$this->scoreboard = Scoreboard::getInstance();
 		$this->yamlcomments = new YamlComments($this->getConfig());
 	}
@@ -67,8 +67,6 @@ final class Skywar extends PluginBase implements Listener{
 	public function onEnable() : void{
 		$this->getServer()->getCommandMap()->register("skywars", new SkywarCommands($this));
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
-		sleep(2);
-		$this->getMoney();
 	}
 
 	public function getMoney() : int{
@@ -83,8 +81,8 @@ final class Skywar extends PluginBase implements Listener{
 				//None
 			}
 		);
-		var_dump($p);
-		echo $b;
+		//var_dump($p);
+		//echo $b;
 		//var_dump(BedrockEconomyAPI::beta()->get("StockyNoob"));
 		return $b;
 	}
@@ -137,20 +135,20 @@ final class Skywar extends PluginBase implements Listener{
 			$this->language->getMessage("form.settings.title"),
 			[
 				new Label("text", $this->language->getMessage("form.settings.text")),
-				new Input("countdown-time", $this->language->getMessage("form.settings.input1"), "", (string) $this->arena_manager->getDefaultCountdownTime()),
-				new Input("opencage-time", $this->language->getMessage("form.settings.input2"), "", (string) $this->arena_manager->getDefaultOpencageTime()),
-				new Input("game-time", $this->language->getMessage("form.settings.input3"), "", (string) $this->arena_manager->getDefaultGameTime()),
-				new Input("restart-time", $this->language->getMessage("form.settings.input4"), "", (string) $this->arena_manager->getDefaultRestartTime()),
-				new Input("force-time", $this->language->getMessage("form.settings.input5"), "", (string) $this->arena_manager->getDefaultForceTime()),
-				new Input("arena-limit", $this->language->getMessage("form.settings.input6"), "-1", (string) $this->arena_manager->getArenaLimit()),
+				new Input("countdown-time", $this->language->getMessage("form.settings.input1"), "", (string) $this->match_manager->getDefaultCountdownTime()),
+				new Input("opencage-time", $this->language->getMessage("form.settings.input2"), "", (string) $this->match_manager->getDefaultOpencageTime()),
+				new Input("game-time", $this->language->getMessage("form.settings.input3"), "", (string) $this->match_manager->getDefaultGameTime()),
+				new Input("restart-time", $this->language->getMessage("form.settings.input4"), "", (string) $this->match_manager->getDefaultRestartTime()),
+				new Input("force-time", $this->language->getMessage("form.settings.input5"), "", (string) $this->match_manager->getDefaultForceTime()),
+				new Input("arena-limit", $this->language->getMessage("form.settings.input6"), "-1", (string) $this->match_manager->getArenaLimit()),
 			],
 			function(Player $submitter, CustomFormResponse $response) : void{
-				$this->arena_manager->setDefaultCountdownTime((int) ($response->getString("countdown-time") ?? $this->arena_manager->getDefaultCountdownTime()));
-				$this->arena_manager->setDefaultOpencageTime((int) ($response->getString("opencage-time") ?? $this->arena_manager->getDefaultOpencageTime()));
-				$this->arena_manager->setDefaultGameTime((int) ($response->getString("game-time") ?? $this->arena_manager->getDefaultGameTime()));
-				$this->arena_manager->setDefaultRestartTime((int) ($response->getString("restart-time") ?? $this->arena_manager->getDefaultRestartTime()));
-				$this->arena_manager->setDefaultForceTime((int) ($response->getString("force-time") ?? $this->arena_manager->getDefaultForceTime()));
-				$this->arena_manager->setArenaLimit((int) ($response->getString("arena-limit") ?? $this->arena_manager->getArenaLimit()));
+				$this->match_manager->setDefaultCountdownTime((int) ($response->getString("countdown-time") ?? $this->match_manager->getDefaultCountdownTime()));
+				$this->match_manager->setDefaultOpencageTime((int) ($response->getString("opencage-time") ?? $this->match_manager->getDefaultOpencageTime()));
+				$this->match_manager->setDefaultGameTime((int) ($response->getString("game-time") ?? $this->match_manager->getDefaultGameTime()));
+				$this->match_manager->setDefaultRestartTime((int) ($response->getString("restart-time") ?? $this->match_manager->getDefaultRestartTime()));
+				$this->match_manager->setDefaultForceTime((int) ($response->getString("force-time") ?? $this->match_manager->getDefaultForceTime()));
+				$this->match_manager->setArenaLimit((int) ($response->getString("arena-limit") ?? $this->match_manager->getArenaLimit()));
 			}
 		);
 	}
@@ -180,27 +178,6 @@ final class Skywar extends PluginBase implements Listener{
 		);
 	}
 
-	public function onCommandPreprocess(PlayerCommandPreprocessEvent $event) : void{
-		$player = $event->getPlayer();
-		$cmd = $event->getMessage();
-		if ($cmd === "/kill") {
-			$player->sendMessage("You cannot use this command while in game!");
-			$event->cancel();
-		}
-
-		if ($cmd === "/pl") {
-			$player->sendMessage("You cannot use this command while in game!");
-			$event->cancel();
-		}
-	}
-
-	/**
-	 * @return ArenaManager|null
-	 */
-	public function getArenaManager() : ?ArenaManager{
-		return $this->arena_manager;
-	}
-
 	public function getLanguage() : ?LanguageManager{
 		return $this->language;
 	}
@@ -209,16 +186,23 @@ final class Skywar extends PluginBase implements Listener{
 	 * @throws \JsonException
 	 */
 	public function onDisable() : void{
-		$this->getConfig()->setNested("settings.time.countdown", $this->arena_manager->getDefaultCountdownTime());
-		$this->getConfig()->setNested("settings.time.opencage", $this->arena_manager->getDefaultOpencageTime());
-		$this->getConfig()->setNested("settings.time.game", $this->arena_manager->getDefaultGameTime());
-		$this->getConfig()->setNested("settings.time.restart", $this->arena_manager->getDefaultRestartTime());
-		$this->getConfig()->setNested("settings.time.force", $this->arena_manager->getDefaultForceTime());
-		$this->getConfig()->setNested("settings-arena_limit", $this->arena_manager->getArenaLimit());
+		$this->getConfig()->setNested("settings.time.countdown", $this->match_manager->getDefaultCountdownTime());
+		$this->getConfig()->setNested("settings.time.opencage", $this->match_manager->getDefaultOpencageTime());
+		$this->getConfig()->setNested("settings.time.game", $this->match_manager->getDefaultGameTime());
+		$this->getConfig()->setNested("settings.time.restart", $this->match_manager->getDefaultRestartTime());
+		$this->getConfig()->setNested("settings.time.force", $this->match_manager->getDefaultForceTime());
+		$this->getConfig()->setNested("settings-arena_limit", $this->match_manager->getArenaLimit());
 
 		$this->getConfig()->set("language", $this->language->getLanguageId());
 
 		$this->saveConfig();
 		$this->yamlcomments->emitComments();
+	}
+
+	/**
+	 * @return MatchManager|null
+	 */
+	public function getMatchManager() : ?MatchManager{
+		return $this->match_manager;
 	}
 }

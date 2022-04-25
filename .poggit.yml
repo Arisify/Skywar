@@ -15,4 +15,6 @@ projects:
         version: ^1.0.0
       - src: dktapps-pm-pl/pmforms/pmforms
         version: ^2.0.0
+      - src: sky-min/CommandLib/CommandLib
+        version: ^1.5.0
 ...

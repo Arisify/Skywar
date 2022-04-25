@@ -4,6 +4,7 @@
 CONFIG_VERSION: 0.1
 
 language: en-US
+
 multi-player: false # Each player can have their own language setting
 
 
