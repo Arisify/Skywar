@@ -47,14 +47,14 @@ class ArenaManager{
 
 	public function __construct(private Skywar $plugin){
 		$this->map_path = $this->plugin->getDataFolder() . "maps/";
-		$this->commandsBanLists = (array) $this->plugin->getConfig()->get("skywar.commands.banned", []);
+		$this->commandsBanLists =
 		$this->savePlayerData = (bool) $this->plugin->getConfig()->get("skywar.settings-save_player_inventory", true);
 		$this->archiveMap = (bool) $this->plugin->getConfig()->get("skywar.settings-archive_map", true);
-		$this->arena_limit = (int) $this->plugin->getConfig()->get("skywar.settings-arena_limit", -1);
+		$this->arena_limit =
 
-		$this->default_countdown_time = $this->plugin->getConfig()->get("skywar.time-countdown", 45);
-		$this->default_opencage_time = $this->plugin->getConfig()->get("skywar.time-opencage", 15);
-		$this->default_game_time = $this->plugin->getConfig()->get("skywar.time-game", 20 * 60);
+		$this->default_countdown_time =
+		$this->default_opencage_time = $this->plugin->getConfig()->get("", 15);
+		$this->default_game_time = $this->plugin->getConfig()->get("", 20 * 60);
 		$this->default_restart_time = $this->plugin->getConfig()->get("skywar.time-restart", 15);
 		$this->default_force_time = $this->plugin->getConfig()->get("skywar.time-force", 15);
 
@@ -71,12 +71,12 @@ class ArenaManager{
 						continue;
 					}
 					try{
-						$data = json_decode($data_path, false, 512, JSON_THROW_ON_ERROR);
+						$preset = json_decode($data_path, false, 512, JSON_THROW_ON_ERROR);
 					} catch (\JsonException $e){
 						$this->plugin->getLogger()->notice("Maps file is corrupted or missing");
 						continue;
 					}
-					$this->maps[$map] = \SplFixedArray::fromArray($data);
+					$this->maps[$map] = \SplFixedArray::fromArray($preset);
 				}
 		*/
 	}

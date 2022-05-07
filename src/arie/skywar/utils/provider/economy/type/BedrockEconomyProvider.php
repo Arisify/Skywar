@@ -17,17 +17,17 @@
 */
 declare(strict_types=1);
 
-use arie\skywar\economy\EconomyProvider;
+namespace economy\type;
 
 use cooldogedev\BedrockEconomy\api\BedrockEconomyAPI;
 use cooldogedev\BedrockEconomy\api\version\BetaBEAPI;
 use cooldogedev\BedrockEconomy\BedrockEconomy;
-use pocketmine\promise\Promise;
+use economy\EconomyProvider;
 
 class BedrockEconomyProvider implements EconomyProvider{
 	private BetaBEAPI $economy;
 
-	public function __construct() {
+	public function __construct(){
 		$this->economy = BedrockEconomyAPI::beta();
 	}
 

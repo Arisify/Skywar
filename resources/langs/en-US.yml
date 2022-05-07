@@ -129,7 +129,7 @@ language.key-not-found: There are no key specific to "{MESSAGE_KEY}" in the {LAN
 language.not-exist: The language you are using ({LANG_ID}) is not exist, undoing the changes!
 language.not-supported: The language you are using ({LANG_NAME}) is not currently supported, causing the message to be missing.
 language.outdated: The language you are using ({LANG_NAME}) ({LANG_VER} -> {PLUGIN_LANG_VER}) is outdated causing the messages to be missing or wrong!
-langugae.corrupted-raw: The raw data ({RAW_LANG_NAME} - {RAW_LANG_ID}) has been corrupted, try to reload the server and reporting this issues to the dev! (&b {WEBSITE}).
+langugae.corrupted-raw: The raw preset ({RAW_LANG_NAME} - {RAW_LANG_ID}) has been corrupted, try to reload the server and reporting this issues to the dev! (&b {WEBSITE}).
 language.set: The default language has been set to {LANG_NAME} ({LANG_ID}), version {LANG_VER}!
 language.unknown: unknown
 

@@ -51,24 +51,26 @@ rewards:
   lost: 5
   achievement: 50
 settings:
-  # The amount of maximum arena, -1 for unlimited (not supported)
-  arena_limit: -1
-  achievement: false # An achievement system
-  # Broadcast player's winning to all players on the server
-  broadcast_winner: true
-  # Allow player to craft stuff while in-game
-  crafting: true
-  # In-game kill counter
-  kill_counter: true
-  # Save player' data, like: old inventory, old health, hunger, etc
-  # This might slow down your performance
-  save_player_data: true
+  matchs:
+    # The amount of maximum arena, -1 for unlimited (not supported)
+    limit: -1
+    # Allow player to craft stuff while in-game
+    crafting: true
+    # Allow player to craft stuff while in-game
+    cmd-blacklist: true
+    # In-game kill counter
+    kill_counter: true
+    # Save player' preset, like: old inventory, old health, hunger, etc
+    # This might slow down your performance
+    save_player_data: true
   time:
     countdown: 45
     opencage: 15
     game: 1200
     restart: 15
     force: 15
+  # Broadcast player's winning to all players on the server
+  broadcast_winner: true
 
 world:
   lobby:

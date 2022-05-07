@@ -19,13 +19,13 @@ declare(strict_types=1);
 
 namespace arie\skywar;
 
+use arie\skywar\language\LanguageTag;
 use pocketmine\event\Listener;
-use pocketmine\event\player\PlayerCommandPreprocessEvent;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 
 use arie\scoreboard\Scoreboard;
-use arie\skywar\language\LanguageManager;
+use arie\skywar\language\Language;
 use arie\skywar\match\MatchManager;
 use arie\yamlcomments\YamlComments;
 
@@ -39,12 +39,13 @@ use dktapps\pmforms\MenuForm;
 use dktapps\pmforms\MenuOption;
 
 use cooldogedev\BedrockEconomy\api\BedrockEconomyAPI;
+use skymin\CommandLib\CmdManager;
 
 final class Skywar extends PluginBase implements Listener{
 	private static Skywar $instance;
 
 	private MatchManager $match_manager;
-	private LanguageManager $language;
+	private Language $language;
 	private Scoreboard $scoreboard;
 	private YamlComments $yamlcomments;
 
@@ -53,10 +54,10 @@ final class Skywar extends PluginBase implements Listener{
 		foreach ($this->getResources() as $resource) {
 			$this->saveResource($resource->getFilename());
 		}
-		$this->language = new LanguageManager($this);
+		$this->language = new Language($this);
 
-		$this->match_manager = new MatchManager($this);
-		$this->scoreboard = Scoreboard::getInstance();
+		//$this->match_manager = new MatchManager($this);
+		//$this->scoreboard = Scoreboard::getInstance();
 		$this->yamlcomments = new YamlComments($this->getConfig());
 	}
 
@@ -65,26 +66,9 @@ final class Skywar extends PluginBase implements Listener{
 	}
 
 	public function onEnable() : void{
-		$this->getServer()->getCommandMap()->register("skywars", new SkywarCommands($this));
+		CmdManager::register($this);
+		$this->getServer()->getCommandMap()->register("skywar", new SkywarCommand($this));
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
-	}
-
-	public function getMoney() : int{
-		$b = 0;
-		$p = BedrockEconomyAPI::beta()->get("StockyNoob");
-		$p->onCompletion(
-			static function (int $balance) use ($b) : void{
-				echo ("Balance: " . $balance . PHP_EOL);
-				$b = $balance;
-			},
-			static function () : void{
-				//None
-			}
-		);
-		//var_dump($p);
-		//echo $b;
-		//var_dump(BedrockEconomyAPI::beta()->get("StockyNoob"));
-		return $b;
 	}
 
 	public function getSkywarManagerUI() : ?MenuForm{
@@ -165,20 +149,20 @@ final class Skywar extends PluginBase implements Listener{
 				$new_lang_id = $languageKeys[$response->getInt("language")];
 				$result = $this->language->setLanguage($new_lang_id);
 				if ($result) {
-					$submitter->sendMessage($this->language->getMessage(
-						"language.set",
+					$submitter->sendMessage($this->language->getMessage(LanguageTag::LANGUAGE_SET,
 						[
 							"{LANG_NAME}" => $this->language->getLanguageName($new_lang_id),
-							"LANG_ID" => $new_lang_id,
+							"{LANG_ID}" => $new_lang_id,
 							"{LANG_VER}" => $this->language->getLanguageVersion($new_lang_id)
-						]
+						],
+						raw: true
 					));
 				}
 			}
 		);
 	}
 
-	public function getLanguage() : ?LanguageManager{
+	public function getLanguage() : ?Language{
 		return $this->language;
 	}
 
