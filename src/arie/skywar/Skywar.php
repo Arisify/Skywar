@@ -19,13 +19,13 @@ declare(strict_types=1);
 
 namespace arie\skywar;
 
+use arie\skywar\language\LanguageManager;
 use arie\skywar\language\LanguageTag;
 use pocketmine\event\Listener;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 
 use arie\scoreboard\Scoreboard;
-use arie\skywar\language\Language;
 use arie\skywar\match\MatchManager;
 use arie\yamlcomments\YamlComments;
 
@@ -38,14 +38,13 @@ use dktapps\pmforms\FormIcon;
 use dktapps\pmforms\MenuForm;
 use dktapps\pmforms\MenuOption;
 
-use cooldogedev\BedrockEconomy\api\BedrockEconomyAPI;
 use skymin\CommandLib\CmdManager;
 
 final class Skywar extends PluginBase implements Listener{
 	private static Skywar $instance;
 
 	private MatchManager $match_manager;
-	private Language $language;
+	private LanguageManager $language;
 	private Scoreboard $scoreboard;
 	private YamlComments $yamlcomments;
 
@@ -54,7 +53,7 @@ final class Skywar extends PluginBase implements Listener{
 		foreach ($this->getResources() as $resource) {
 			$this->saveResource($resource->getFilename());
 		}
-		$this->language = new Language($this);
+		$this->language = new LanguageManager($this);
 
 		//$this->match_manager = new MatchManager($this);
 		//$this->scoreboard = Scoreboard::getInstance();
@@ -160,10 +159,6 @@ final class Skywar extends PluginBase implements Listener{
 				}
 			}
 		);
-	}
-
-	public function getLanguage() : ?Language{
-		return $this->language;
 	}
 
 	/**
