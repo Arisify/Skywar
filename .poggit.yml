@@ -9,6 +9,8 @@ projects:
     excludeDirs:
       - tests
     libs:
+      - src: Arisify/LanguageLib/LanguageLib
+        version: ^1.0.0
       - src: Arisify/libscoreboard/libscoreboard
         version: ^1.0.0
       - src: Arisify/yamlcomments/yamlcomments
@@ -16,5 +18,5 @@ projects:
       - src: dktapps-pm-pl/pmforms/pmforms
         version: ^2.0.0
       - src: sky-min/CommandLib/CommandLib
-        version: ^1.5.0
+        version: ^2.0.1
 ...
