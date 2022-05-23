@@ -150,9 +150,9 @@ final class Skywar extends PluginBase implements Listener{
 				if ($result) {
 					$submitter->sendMessage($this->language->getMessage(LanguageTag::LANGUAGE_SET,
 						[
-							"{LANG_NAME}" => $this->language->getLanguageName($new_lang_id),
-							"{LANG_ID}" => $new_lang_id,
-							"{LANG_VER}" => $this->language->getLanguageVersion($new_lang_id)
+							"{LANGUAGE_NAME}" => $this->language->getLanguageName($new_lang_id),
+							"{LANGUAGE_ID}" => $new_lang_id,
+							"{LANGUAGE_VER}" => $this->language->getLanguageVersion($new_lang_id)
 						],
 						raw: true
 					));
@@ -183,5 +183,12 @@ final class Skywar extends PluginBase implements Listener{
 	 */
 	public function getMatchManager() : ?MatchManager{
 		return $this->match_manager;
+	}
+
+	/**
+	 * @return LanguageManager
+	 */
+	public function getLanguage() : LanguageManager{
+		return $this->language;
 	}
 }

@@ -3,6 +3,7 @@
 # Configuration version, don't edit this.
 CONFIG_VERSION: 0.1
 
+debug: true
 language: en-US
 
 multi-player: false # Each player can have their own language setting
