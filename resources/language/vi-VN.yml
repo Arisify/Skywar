@@ -1,5 +1,6 @@
 ---
 language.version: 0.1
+language.name: Tiếng Việt
 
 mode.group.1: "Tay đôi"
 mode.group.2: "Cặp đôi"
@@ -120,9 +121,9 @@ language.default-not-exist: Ngôn ngữ mặc định ({LANGUAGE_ID}) không t�
 language.key-not-found: Không có bất kì tên nào giống với "{MESSAGE_KEY}" trong {LANGUAGE_NAME} ({LANGUAGE_ID}), đang thử trả lại ngôn ngữ mặc định!
 language.not-exist: Ngôn ngữ bạn nói trên ({LANGUAGE_ID}) không tồn tại, trả lại các thay đổi!
 language.not-supported: Ngôn ngữ bạn nói trên ({LANGUAGE_NAME}) hiện không được hỗ trợ, bạn có thể cung cấp bản dịch tại {TRANSLATOR}.
-language.outdated: Ngôn ngữ bạn sài ({LANGUAGE_NAME}) ({LANGUAGE_VER} -> {PLUGIN_LANGUAGE_VER}) đã hết hạn, việc sử dụng có thể dẫn đến bản dịch bị sai hoặc thiếu xót!
+language.outdated: Ngôn ngữ bạn sài ({LANGUAGE_NAME}) ({LANGUAGE_VERSION} -> {PLUGIN_LANGUAGE_VERSION}) đã hết hạn, việc sử dụng có thể dẫn đến bản dịch bị sai hoặc thiếu xót!
 langugae.corrupted-raw: Dữ liệu nguồn của ({RAW_LANGUAGE_NAME} - {RAW_LANGUAGE_ID}) đã bị lỗi, vui lòng tải lại máy chủ hoặc thông báo tới trang web! (&b {WEBSITE}).
-language.set: Ngôn ngữ mặc định đã được đặt thành {LANGUAGE_NAME} ({LANGUAGE_ID}), phiên bản {LANGUAGE_VER}!
+language.set: Ngôn ngữ mặc định đã được đặt thành {LANGUAGE_NAME} ({LANGUAGE_ID}), phiên bản {LANGUAGE_VERSION}!
 language.unknown: không rõ
 
 # Errors

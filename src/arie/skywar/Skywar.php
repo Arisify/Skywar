@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace arie\skywar;
 
 use arie\language\LanguageManager;
+use arie\language\LanguageTag;
 use pocketmine\event\Listener;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
@@ -43,7 +44,7 @@ final class Skywar extends PluginBase implements Listener{
 	private static Skywar $instance;
 
 	private MatchManager $match_manager;
-	private LanguageManager $language;
+	private LanguageManager $language_manager;
 	private Scoreboard $scoreboard;
 	private YamlComments $yamlcomments;
 
@@ -52,7 +53,7 @@ final class Skywar extends PluginBase implements Listener{
 		foreach ($this->getResources() as $resource) {
 			$this->saveResource($resource->getFilename());
 		}
-		$this->language = new LanguageManager($this, "language", "en-US", 0.1, true, true);
+		$this->language_manager = new LanguageManager($this, "language", "en-US", 0.1, blacklists: ["vi*.yml"]);
 
 		//$this->match_manager = new MatchManager($this);
 		//$this->scoreboard = Scoreboard::getInstance();
@@ -71,13 +72,13 @@ final class Skywar extends PluginBase implements Listener{
 
 	public function getSkywarManagerUI() : ?MenuForm{
 		return new MenuForm(
-			$this->language->getMessage("form.manager.title"),
-			$this->language->getMessage("form.manager.text"),
+			$this->language_manager->getMessage("form.manager.title"),
+			$this->language_manager->getMessage("form.manager.text"),
 			[
-				new MenuOption($this->language->getMessage("form.manager.button-settings"), new FormIcon("textures/ui/settings_glyph_color_2x.png", FormIcon::IMAGE_TYPE_PATH)),
-				new MenuOption($this->language->getMessage("form.manager.button-arenalist"), new FormIcon("textures/ui/storageIconColor.png", FormIcon::IMAGE_TYPE_PATH)),
-				new MenuOption($this->language->getMessage("form.manager.button-maplist"), new FormIcon("textures/ui/world_glyph_color_2x.png", FormIcon::IMAGE_TYPE_PATH)),
-				new MenuOption($this->language->getMessage("form.manager.button-language"), new FormIcon("textures/ui/language_glyph_color.png", FormIcon::IMAGE_TYPE_PATH)),
+				new MenuOption($this->language_manager->getMessage("form.manager.button-settings"), new FormIcon("textures/ui/settings_glyph_color_2x.png", FormIcon::IMAGE_TYPE_PATH)),
+				new MenuOption($this->language_manager->getMessage("form.manager.button-arenalist"), new FormIcon("textures/ui/storageIconColor.png", FormIcon::IMAGE_TYPE_PATH)),
+				new MenuOption($this->language_manager->getMessage("form.manager.button-maplist"), new FormIcon("textures/ui/world_glyph_color_2x.png", FormIcon::IMAGE_TYPE_PATH)),
+				new MenuOption($this->language_manager->getMessage("form.manager.button-language"), new FormIcon("textures/ui/language_glyph_color.png", FormIcon::IMAGE_TYPE_PATH)),
 			],
 			function(Player $player, int $selected) : void{
 				switch ($selected) {
@@ -101,10 +102,10 @@ final class Skywar extends PluginBase implements Listener{
 
 	public function getMapSettingsUI() : ?MenuForm{
 		return new MenuForm(
-			$this->language->getMessage("form.maps.title"),
-			$this->language->getMessage("form.maps.text"),
+			$this->language_manager->getMessage("form.maps.title"),
+			$this->language_manager->getMessage("form.maps.text"),
 			[
-				new MenuOption($this->language->getMessage("form.button.back"), new FormIcon("textures/ui/arrow_left.png", FormIcon::IMAGE_TYPE_PATH))
+				new MenuOption($this->language_manager->getMessage("form.button.back"), new FormIcon("textures/ui/arrow_left.png", FormIcon::IMAGE_TYPE_PATH))
 			],
 			function(Player $player, int $selected) : void{
 				$player->sendForm($this->getSkywarManagerUI());
@@ -114,15 +115,15 @@ final class Skywar extends PluginBase implements Listener{
 
 	public function getArenaSettingsUI() : ?CustomForm{
 		return new CustomForm(
-			$this->language->getMessage("form.settings.title"),
+			$this->language_manager->getMessage("form.settings.title"),
 			[
-				new Label("text", $this->language->getMessage("form.settings.text")),
-				new Input("countdown-time", $this->language->getMessage("form.settings.input1"), "", (string) $this->match_manager->getDefaultCountdownTime()),
-				new Input("opencage-time", $this->language->getMessage("form.settings.input2"), "", (string) $this->match_manager->getDefaultOpencageTime()),
-				new Input("game-time", $this->language->getMessage("form.settings.input3"), "", (string) $this->match_manager->getDefaultGameTime()),
-				new Input("restart-time", $this->language->getMessage("form.settings.input4"), "", (string) $this->match_manager->getDefaultRestartTime()),
-				new Input("force-time", $this->language->getMessage("form.settings.input5"), "", (string) $this->match_manager->getDefaultForceTime()),
-				new Input("arena-limit", $this->language->getMessage("form.settings.input6"), "-1", (string) $this->match_manager->getArenaLimit()),
+				new Label("text", $this->language_manager->getMessage("form.settings.text")),
+				new Input("countdown-time", $this->language_manager->getMessage("form.settings.input1"), "", (string) $this->match_manager->getDefaultCountdownTime()),
+				new Input("opencage-time", $this->language_manager->getMessage("form.settings.input2"), "", (string) $this->match_manager->getDefaultOpencageTime()),
+				new Input("game-time", $this->language_manager->getMessage("form.settings.input3"), "", (string) $this->match_manager->getDefaultGameTime()),
+				new Input("restart-time", $this->language_manager->getMessage("form.settings.input4"), "", (string) $this->match_manager->getDefaultRestartTime()),
+				new Input("force-time", $this->language_manager->getMessage("form.settings.input5"), "", (string) $this->match_manager->getDefaultForceTime()),
+				new Input("arena-limit", $this->language_manager->getMessage("form.settings.input6"), "-1", (string) $this->match_manager->getArenaLimit()),
 			],
 			function(Player $submitter, CustomFormResponse $response) : void{
 				$this->match_manager->setDefaultCountdownTime((int) ($response->getString("countdown-time") ?? $this->match_manager->getDefaultCountdownTime()));
@@ -136,24 +137,24 @@ final class Skywar extends PluginBase implements Listener{
 	}
 
 	public function getLanguageUI() : ?CustomForm{
-		$languageKeys = array_keys($this->language->getLanguageList());
+		$languageKeys = array_keys($this->language_manager->getLanguageList());
+		$language = $this->language_manager->getLanguage();
 		return new CustomForm(
-			$this->language->getMessage("form.language.title"),
+			$this->language_manager->getMessage("form.language.title"),
 			[
-				new Label("text", $this->language->getMessage("form.language.text", ["{LANGUAGE_NAME}" => $this->language->getLanguageName($this->language->getLanguageId()), "{LANGUAGE_ID}" => $this->language->getLanguageId()])),
-				new Dropdown("language", $this->language->getMessage("form.language.dropdown"), $languageKeys, array_search($this->language->getLanguageId(), $languageKeys, true))
+				new Label("text", $this->language_manager->getMessage("form.language.text", ["{LANGUAGE_NAME}" => $language->getName(), "{LANGUAGE_ID}" => $language->getId()])),
+				new Dropdown("language", $this->language_manager->getMessage("form.language.dropdown"), $languageKeys, array_search($this->language_manager->getCurrent(), $languageKeys, true))
 			],
-			function(Player $submitter, CustomFormResponse $response) use ($languageKeys) : void{
+			function(Player $submitter, CustomFormResponse $response) use ($language, $languageKeys) : void{
 				$new_lang_id = $languageKeys[$response->getInt("language")];
-				$result = $this->language->setLanguage($new_lang_id);
+				$result = $this->language_manager->setLanguage($new_lang_id);
 				if ($result) {
-					$submitter->sendMessage($this->language->getMessage(LanguageTag::LANGUAGE_SET,
+					$submitter->sendMessage($this->language_manager->getMessage(LanguageTag::LANGUAGE_SET,
 						[
-							"{LANGUAGE_NAME}" => $this->language->getLanguageName($new_lang_id),
+							"{LANGUAGE_NAME}" => $language->getName(),
 							"{LANGUAGE_ID}" => $new_lang_id,
-							"{LANGUAGE_VER}" => $this->language->getLanguageVersion($new_lang_id)
-						],
-						raw: true
+							"{LANGUAGE_VER}" => $language->getVersion()
+						]
 					));
 				}
 			}
@@ -164,14 +165,14 @@ final class Skywar extends PluginBase implements Listener{
 	 * @throws \JsonException
 	 */
 	public function onDisable() : void{
-		$this->getConfig()->setNested("settings.time.countdown", $this->match_manager->getDefaultCountdownTime());
-		$this->getConfig()->setNested("settings.time.opencage", $this->match_manager->getDefaultOpencageTime());
-		$this->getConfig()->setNested("settings.time.game", $this->match_manager->getDefaultGameTime());
-		$this->getConfig()->setNested("settings.time.restart", $this->match_manager->getDefaultRestartTime());
-		$this->getConfig()->setNested("settings.time.force", $this->match_manager->getDefaultForceTime());
-		$this->getConfig()->setNested("settings-arena_limit", $this->match_manager->getArenaLimit());
+		//$this->getConfig()->setNested("settings.time.countdown", $this->match_manager->getDefaultCountdownTime());
+		//$this->getConfig()->setNested("settings.time.opencage", $this->match_manager->getDefaultOpencageTime());
+		//$this->getConfig()->setNested("settings.time.game", $this->match_manager->getDefaultGameTime());
+		//$this->getConfig()->setNested("settings.time.restart", $this->match_manager->getDefaultRestartTime());
+		//$this->getConfig()->setNested("settings.time.force", $this->match_manager->getDefaultForceTime());
+		//$this->getConfig()->setNested("settings-arena_limit", $this->match_manager->getArenaLimit());
 
-		$this->getConfig()->set("language", $this->language->getLanguageId());
+		$this->getConfig()->set("language", $this->language_manager->getCurrent());
 
 		$this->saveConfig();
 		$this->yamlcomments->emitComments();
@@ -187,7 +188,7 @@ final class Skywar extends PluginBase implements Listener{
 	/**
 	 * @return LanguageManager
 	 */
-	public function getLanguage() : LanguageManager{
-		return $this->language;
+	public function getLanguageManager() : LanguageManager{
+		return $this->language_manager;
 	}
 }

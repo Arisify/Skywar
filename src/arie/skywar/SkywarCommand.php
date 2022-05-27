@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace arie\skywar;
 
-use JetBrains\PhpStorm\ArrayShape;
 use pocketmine\command\CommandSender;
 
 use pocketmine\player\Player;
@@ -48,7 +47,7 @@ class SkywarCommand extends BaseCommand{
 		$this->addOverload([
 			Parameter::create("lang", "lang", ["lang"]),
 			Parameter::create("set", "set", ["set"]),
-			Parameter::create("id", "language id", array_map('mb_strtolower', array_keys($this->plugin->getLanguage()->getLanguageList())))
+			Parameter::create("id", "language id", array_map('mb_strtolower', array_keys($this->plugin->getLanguageManager()->getLanguageList())))
 		]);
 		$this->addOverload([
 			Parameter::create("lang", "lang", ["lang"]),
@@ -102,10 +101,10 @@ class SkywarCommand extends BaseCommand{
 				}
 				switch ($args[1]) {
 					case "set":
-						$this->plugin->getLanguage()->setLanguage($args[1]);
+						$this->plugin->getLanguageManager()->setLanguage($args[1]);
 						break;
 					case "list":
-						$language = $this->plugin->getLanguage();
+						$language = $this->plugin->getLanguageManager();
 						$contents = "LANGUAGE LIST: " . PHP_EOL;
 						$len = max(array_map('mb_strlen', $language->getLanguageList()));
 
