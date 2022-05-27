@@ -54,7 +54,7 @@ class MatchInfo{
 	}
 
 	public static function fromArray(array $data) : MatchInfo{
-
+		//To-do
 	}
 
 	public function toArray() : array{

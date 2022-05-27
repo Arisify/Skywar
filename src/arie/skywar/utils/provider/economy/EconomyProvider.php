@@ -17,7 +17,7 @@
 */
 declare(strict_types=1);
 
-namespace economy;
+namespace arie\skywar\utils\provider\economy;
 
 interface EconomyProvider{
 	public function addMoney(string $user, int|float $amount) : void;

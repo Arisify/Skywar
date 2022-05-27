@@ -16,8 +16,7 @@
  *
 */
 declare(strict_types=1);
-namespace economy;
+namespace arie\skywar\utils\provider\economy;
 
 class EconomyManager{
-
 }

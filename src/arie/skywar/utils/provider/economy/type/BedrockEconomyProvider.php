@@ -17,12 +17,12 @@
 */
 declare(strict_types=1);
 
-namespace economy\type;
+namespace arie\skywar\utils\provider\economy\type;
 
+use arie\skywar\utils\provider\EconomyProvider;
 use cooldogedev\BedrockEconomy\api\BedrockEconomyAPI;
 use cooldogedev\BedrockEconomy\api\version\BetaBEAPI;
 use cooldogedev\BedrockEconomy\BedrockEconomy;
-use economy\EconomyProvider;
 
 class BedrockEconomyProvider implements EconomyProvider{
 	private BetaBEAPI $economy;
