@@ -19,8 +19,7 @@ declare(strict_types=1);
 
 namespace arie\skywar;
 
-use arie\skywar\language\LanguageManager;
-use arie\skywar\language\LanguageTag;
+use arie\language\LanguageManager;
 use pocketmine\event\Listener;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
@@ -53,7 +52,7 @@ final class Skywar extends PluginBase implements Listener{
 		foreach ($this->getResources() as $resource) {
 			$this->saveResource($resource->getFilename());
 		}
-		$this->language = new LanguageManager($this);
+		$this->language = new LanguageManager($this, "language", "en-US", 0.1, true, true);
 
 		//$this->match_manager = new MatchManager($this);
 		//$this->scoreboard = Scoreboard::getInstance();
