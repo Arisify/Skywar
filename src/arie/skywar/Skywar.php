@@ -20,7 +20,6 @@ declare(strict_types=1);
 namespace arie\skywar;
 
 use arie\language\LanguageManager;
-use arie\language\LanguageTag;
 use pocketmine\event\Listener;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
@@ -53,8 +52,39 @@ final class Skywar extends PluginBase implements Listener{
 		foreach ($this->getResources() as $resource) {
 			$this->saveResource($resource->getFilename());
 		}
-		$this->language_manager = new LanguageManager($this, "language", "en-US", 0.1, blacklists: ["vi*.yml"]);
 		$this->yamlcomments = new YamlComments($this->getConfig());
+
+		$this->language_manager = new LanguageManager($this, "language", "en-US", (float) $this->getDescription()->getMap()["versions"]["language"]);
+		$language_id = $this->getConfig()->get("language", "en-US");
+		if ($this->language_manager->setLanguage($language_id)) {
+			$language = $this->language_manager->getLanguage();
+			$this->getLogger()->info($this->language_manager->getMessage("language.set",
+				[
+					"{LANGUAGE_NAME}" => $language->getName(),
+					"{LANGUAGE_ID}" => $language->getId(),
+					"{LANGUAGE_VERSION}" => $language->getVersion()
+				]
+			));
+		} else {
+			$this->getLogger()->notice($this->language_manager->getMessage("language.default-not-exist",
+				[
+					"{LANGUAGE_ID}" => $language_id,
+					"{DEFAULT_LANGUAGE_NAME}" => $this->language_manager->getLanguage()->getName(),
+					"{DEFAULT_LANGUAGE_ID}" => $this->language_manager->getCurrentLanguage()
+				]
+			));
+		}
+		if ($this->language_manager->checkVersion()) {
+			$language = $this->language_manager->getLanguage();
+			$this->getLogger()->notice($this->language_manager->getMessage("language.outdated",
+				[
+					"{LANGUAGE_NAME}" => $language->getName(),
+					"{LANGUAGE_ID}" => $language->getId(),
+					"{LANGUAGE_VERSION}" => $language->getVersion(),
+					"{PLUGIN_LANGUAGE_VERSION}" => $this->language_manager->getLatestVersion()
+				]
+			));
+		}
 	}
 
 	public static function getInstance() : self{
@@ -67,7 +97,7 @@ final class Skywar extends PluginBase implements Listener{
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
 
-	public function getSkywarManagerUI() : ?MenuForm{
+	public function getManagerUI() : ?MenuForm{
 		return new MenuForm(
 			$this->language_manager->getMessage("form.manager.title"),
 			$this->language_manager->getMessage("form.manager.text"),
@@ -91,7 +121,7 @@ final class Skywar extends PluginBase implements Listener{
 						$player->sendForm($this->getLanguageUI());
 						break;
 					default:
-						$player->sendForm($this->getSkywarManagerUI());
+						$player->sendForm($this->getManagerUI());
 				}
 			}
 		);

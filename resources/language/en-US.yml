@@ -124,14 +124,12 @@ command.noperm: "You don't have permissions to use this command!"
 
 # Language logger
 language.already-set: The language has already set to {LANGUAGE_NAME} ({LANGUAGE_ID})!
-language.default-not-exist: The default language which you are using ({LANGUAGE_ID}) is not exist, using default language ({DEFAULT_LANGUAGE_NAME})!
+language.default-not-exist: The language ({LANGUAGE_ID}) is not exist, using the default language ({DEFAULT_LANGUAGE_NAME} - {DEFAULT_LANGUAGE_ID})!
 language.key-not-found: There are no key specific to "{MESSAGE_KEY}" in the {LANGUAGE_NAME} ({LANGUAGE_ID}), return default message!
 language.not-exist: The language you are using ({LANGUAGE_ID}) is not exist, undoing the changes!
 language.not-supported: The language you are using ({LANGUAGE_NAME}) is not currently supported, causing the message to be missing.
-language.outdated: The language you are using ({LANGUAGE_NAME}) ({LANGUAGE_VERSION} -> {PLUGIN_LANGUAGE_VERSION}) is outdated causing the messages to be missing or wrong!
-langugae.corrupted-raw: The raw preset ({RAW_LANGUAGE_NAME} - {RAW_LANGUAGE_ID}) has been corrupted, try to reload the server and reporting this issues to the dev! (&b {WEBSITE}).
+language.outdated: The language you are using ({LANGUAGE_NAME} - {LANGUAGE_ID}), ({LANGUAGE_VERSION} -> {PLUGIN_LANGUAGE_VERSION}!) is outdated causing the messages to be missing or wrong!
 language.set: The default language has been set to {LANGUAGE_NAME} ({LANGUAGE_ID}), version {LANGUAGE_VERSION}!
-language.unknown: unknown
 
 # Config logger
 config.outdated: The config has been outdated, please update your config version to the latest config ({CONFIG_VER} -> {PLUGIN_CONFIG_VER})for stability!
