@@ -54,9 +54,6 @@ final class Skywar extends PluginBase implements Listener{
 			$this->saveResource($resource->getFilename());
 		}
 		$this->language_manager = new LanguageManager($this, "language", "en-US", 0.1, blacklists: ["vi*.yml"]);
-
-		//$this->match_manager = new MatchManager($this);
-		//$this->scoreboard = Scoreboard::getInstance();
 		$this->yamlcomments = new YamlComments($this->getConfig());
 	}
 
@@ -172,7 +169,7 @@ final class Skywar extends PluginBase implements Listener{
 		//$this->getConfig()->setNested("settings.time.force", $this->match_manager->getDefaultForceTime());
 		//$this->getConfig()->setNested("settings-arena_limit", $this->match_manager->getArenaLimit());
 
-		$this->getConfig()->set("language", $this->language_manager->getCurrent());
+		$this->getConfig()->set("language", $this->language_manager->getCurrentLanguage());
 
 		$this->saveConfig();
 		$this->yamlcomments->emitComments();
