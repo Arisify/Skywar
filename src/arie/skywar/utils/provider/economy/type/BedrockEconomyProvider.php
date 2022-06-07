@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Copyright (c) 2022 Arisify
  *
  * This program is freeware, so you are free to redistribute and/or modify

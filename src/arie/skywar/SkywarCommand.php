@@ -1,22 +1,19 @@
 <?php
-/*
+/**
  * Copyright (c) 2022 Arisify
  *
  * This program is freeware, so you are free to redistribute and/or modify
  * it under the conditions of the MIT License.
  *
- *  /\___/\
- *  )     (     @author Arisify
- * =\     /=
- *   )   (      @link   https://github.com/Arisify
- *  /     \     @license https://opensource.org/licenses/MIT MIT License
- *  )     (   /\
- * /       \ ( ') ⁿʸᵃⁿ
- * \       / /  )
- *  \__ __/ (__)|
- *     ))  (
- *    ((
- *     \)
+ * @author  Arisify
+ * @link    https://github.com/Arisify
+ * @license https://opensource.org/licenses/MIT MIT License
+ *
+ * \    /\
+ *  )  ( ') ᵐᵉᵒʷˢ
+ * (  /  )
+ *  \(__)|
+ *
 */
 declare(strict_types=1);
 
@@ -31,18 +28,20 @@ use skymin\CommandLib\Parameter;
 class SkywarCommand extends BaseCommand{
 
 	public function __construct(protected Skywar $plugin){
-		parent::__construct("skywar", "Allow you to modify and join skywar", "/sw addmap|join|list|ui", ["sw"]);
+		parent::__construct("skywar", "Allow you to modify and join skywar", "/sw manage|join|list|ui", ["sw"]);
 		$this->addOverload([
 			Parameter::create("manage", "manage", ["manage"]),
 			Parameter::create("map", "map", ["map"]),
 			Parameter::create("map-args", "map-args", ["add", "list", "set"], Parameter::FLAG_HAS_ENUM_CONSTRAINT),
 		]);
+		/*
 		$this->addOverload([
 			Parameter::create("manage", "manage", ["manage"]),
 			Parameter::create("preset", "preset", ["preset"]),
 			Parameter::create("preset-args", "preset-args", ["add", "list", "set"], Parameter::FLAG_HAS_ENUM_CONSTRAINT),
 		]);
 		$this->addOverload([Parameter::create("join", "join", ["join"])]);
+		*/
 
 		$this->addOverload([
 			Parameter::create("lang", "lang", ["lang"]),
@@ -52,6 +51,9 @@ class SkywarCommand extends BaseCommand{
 		$this->addOverload([
 			Parameter::create("lang", "lang", ["lang"]),
 			Parameter::create("list", "list", ["list"])
+		]);
+		$this->addOverload([
+			Parameter::create("ui", "ui", ["ui"])
 		]);
 
 		// /sw
@@ -80,11 +82,11 @@ class SkywarCommand extends BaseCommand{
 	public function execute(CommandSender $sender, string $commandLabel, array $args) : bool{
 		var_dump($commandLabel);
 		var_dump($args);
-		switch ($args[0]) {
+		switch ($args[0] ?? "ui") {
 			case "manage":
 				if (!isset($args[1])) {
 					if ($sender instanceof Player) {
-						$sender->sendForm($this->plugin->getSkywarManagerUI());
+						$sender->sendForm($this->plugin->getManagerUI());
 					}
 					break;
 				}
@@ -106,10 +108,10 @@ class SkywarCommand extends BaseCommand{
 					case "list":
 						$language = $this->plugin->getLanguageManager();
 						$contents = "LANGUAGE LIST: " . PHP_EOL;
-						$len = max(array_map('mb_strlen', $language->getLanguageList()));
+						$len = max(array_map('mb_strlen', $language->getLanguageList())) + 6;
 
 						foreach ($language->getLanguageList() as $id => $name) {
-							$contents .= $name . str_repeat("1", $len - mb_strlen($name) + 6) . $id . PHP_EOL;
+							$contents .= $name . str_repeat(" ", $len - mb_strlen($name)) . $id . PHP_EOL;
 						}
 						$sender->sendMessage($contents);
 						break;

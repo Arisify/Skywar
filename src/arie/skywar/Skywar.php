@@ -1,12 +1,12 @@
 <?php
-/*
+/**
  * Copyright (c) 2022 Arisify
  *
  * This program is freeware, so you are free to redistribute and/or modify
  * it under the conditions of the MIT License.
  *
- * @author Arisify
- * @link   https://github.com/Arisify
+ * @author  Arisify
+ * @link    https://github.com/Arisify
  * @license https://opensource.org/licenses/MIT MIT License
  *
  * \    /\
@@ -135,7 +135,7 @@ final class Skywar extends PluginBase implements Listener{
 				new MenuOption($this->language_manager->getMessage("form.button.back"), new FormIcon("textures/ui/arrow_left.png", FormIcon::IMAGE_TYPE_PATH))
 			],
 			function(Player $player, int $selected) : void{
-				$player->sendForm($this->getSkywarManagerUI());
+				$player->sendForm($this->getManagerUI());
 			}
 		);
 	}
@@ -176,7 +176,7 @@ final class Skywar extends PluginBase implements Listener{
 				$new_lang_id = $languageKeys[$response->getInt("language")];
 				$result = $this->language_manager->setLanguage($new_lang_id);
 				if ($result) {
-					$submitter->sendMessage($this->language_manager->getMessage(LanguageTag::LANGUAGE_SET,
+					$submitter->sendMessage($this->language_manager->getMessage("language.set",
 						[
 							"{LANGUAGE_NAME}" => $language->getName(),
 							"{LANGUAGE_ID}" => $new_lang_id,

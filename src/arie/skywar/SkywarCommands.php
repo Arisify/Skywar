@@ -1,25 +1,20 @@
 <?php
-/*
+/**
  * Copyright (c) 2022 Arisify
  *
  * This program is freeware, so you are free to redistribute and/or modify
  * it under the conditions of the MIT License.
+ * @deprecated
+ * @author  Arisify
+ * @link    https://github.com/Arisify
+ * @license https://opensource.org/licenses/MIT MIT License
  *
- *  /\___/\
- *  )     (     @author Arisify
- * =\     /=
- *   )   (      @link   https://github.com/Arisify
- *  /     \     @license https://opensource.org/licenses/MIT MIT License
- *  )     (   /\
- * /       \ ( ') ᵐᵉᵒʷˢ
- * \       / /  )
- *  \__ __/_(__)|
- *     ))
- *    //
- *   ((
- *    \)
+ * \    /\
+ *  )  ( ') ᵐᵉᵒʷˢ
+ * (  /  )
+ *  \(__)|
+ *
 */
-
 declare(strict_types=1);
 namespace arie\skywar;
 
@@ -28,7 +23,6 @@ use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
 
 use arie\skywar\arena\Arena;
-
 class SkywarCommands extends Command{
 
 	private Skywar $plugin;
