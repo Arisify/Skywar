@@ -1,6 +1,6 @@
 name: Skywar
-author: arie
-main: arie\skywar\Skywar
+author: arisify
+main: arisify\skywar\Skywar
 website: https://github.com/Arisify/Skywar
 version: 0.1alpha4
 api: 4.3.1
